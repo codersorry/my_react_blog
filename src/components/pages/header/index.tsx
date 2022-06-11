@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Affix, Drawer, Row, Col, Menu, message, Modal, Tooltip } from "antd";
 import type { MenuProps } from "antd";
 import "./index.css";
@@ -11,6 +11,8 @@ import {
   RocketOutlined,
   UserOutlined,
 } from "@ant-design/icons";
+import { ArticleTypeType } from "@/services/components/pages/header";
+import { getArticleTypeList } from "@/services/components/pages/header";
 import { useNavigate, Outlet } from "react-router-dom";
 
 type MenuItem = Required<MenuProps>["items"][number];
@@ -29,28 +31,39 @@ function getItem(
   } as MenuItem;
 }
 
-const items: MenuItem[] = [
-  getItem("首页", "1", <HomeOutlined />),
-  getItem("文章", "2", <FormOutlined />, [
-    getItem("Option 1", "21"),
-    getItem("Option 2", "22"),
-    getItem("Option 3", "23"),
-  ]),
-  getItem("分享", "3", <ShareAltOutlined />),
-  getItem("互动", "4", <SmileOutlined />),
-  getItem("留言", "5", <MessageOutlined />),
-  getItem("历程", "6", <RocketOutlined />),
-  getItem("关于", "7", <UserOutlined />),
-];
-
 const Header: React.FC = () => {
+  const [articleTypeList, setArticleTypeList] = useState([]);
+  const mapArr = (data: ArticleTypeType[]) => {
+    const arr: any = [];
+    data.forEach((item: ArticleTypeType) => {
+      arr.push(getItem(item.typeName, item.id));
+    });
+    setArticleTypeList(arr);
+  };
+
+  const items: MenuItem[] = [
+    getItem("首页", "home", <HomeOutlined />),
+    getItem("文章", "article", <FormOutlined />, articleTypeList),
+    getItem("分享", "3", <ShareAltOutlined />),
+    getItem("互动", "4", <SmileOutlined />),
+    getItem("留言", "5", <MessageOutlined />),
+    getItem("历程", "6", <RocketOutlined />),
+    getItem("关于", "7", <UserOutlined />),
+  ];
+  useEffect(() => {
+    getArticleTypeList().then((res) => {
+      mapArr(res.data);
+    });
+  }, []);
+
   const navigate = useNavigate();
   //点击菜单跳转路由
   const menuClick = (e: any) => {
-    if (e.key === "1") {
+    debugger;
+    if (e.key === "home") {
       navigate("/");
-    } else if (e.key === "2") {
-      navigate("/222");
+    } else if (e.keyPath[1] === "article") {
+      navigate(`/article/${e.key}`);
     }
   };
   return (

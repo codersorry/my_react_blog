@@ -1,4 +1,4 @@
-let BASE_URL = "http://43.142.128.17:7001";
+let BASE_URL = "http://127.0.0.1:7001";
 const TIME_OUT = 10000;
 
 // if (process.env.NODE_ENV === "development") {

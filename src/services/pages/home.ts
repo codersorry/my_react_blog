@@ -1,7 +1,7 @@
 import myRequest from "@/utils/request";
 import { MyResponseType } from "../type";
 
-interface ArticleListType extends MyResponseType {
+export interface ArticleListType extends MyResponseType {
   data: ArticleListDataType[];
 }
 export interface ArticleListDataType {
