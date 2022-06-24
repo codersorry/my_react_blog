@@ -42,10 +42,12 @@ const Article: React.FC = () => {
       debugger;
       setList(res.data);
     });
-  }, []);
+  }, [id]);
   //标题点击
   const titleClick = (id: number) => {
-    navigate(`/detail/${id}`);
+    navigate(`/detail/${id}`, {
+      replace: true,
+    });
   };
   return (
     <div>

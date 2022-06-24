@@ -44,11 +44,13 @@ const Header: React.FC = () => {
   const items: MenuItem[] = [
     getItem("首页", "home", <HomeOutlined />),
     getItem("文章", "article", <FormOutlined />, articleTypeList),
-    getItem("分享", "3", <ShareAltOutlined />),
-    getItem("互动", "4", <SmileOutlined />),
-    getItem("留言", "5", <MessageOutlined />),
-    getItem("历程", "6", <RocketOutlined />),
-    getItem("关于", "7", <UserOutlined />),
+    getItem("记录", "record", <RocketOutlined />),
+    getItem("说说", "3", <ShareAltOutlined />),
+    getItem("照片", "4", <SmileOutlined />),
+    getItem("留言", "6", <MessageOutlined />),
+    getItem("聊天室", "7", <MessageOutlined />),
+    getItem("友链", "5", <SmileOutlined />),
+    getItem("关于", "8", <UserOutlined />),
   ];
   useEffect(() => {
     getArticleTypeList().then((res) => {
@@ -64,6 +66,8 @@ const Header: React.FC = () => {
       navigate("/");
     } else if (e.keyPath[1] === "article") {
       navigate(`/article/${e.key}`);
+    } else if (e.key === "record") {
+      navigate("/record");
     }
   };
   return (
