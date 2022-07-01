@@ -65,7 +65,6 @@ const Detail: React.FC = (props: PropsType) => {
 
   return (
     <div>
-      <Header />
       <Row className="comm-main" justify="center">
         <Col className="comm-left" xs={23} sm={23} md={18} lg={16} xl={14}>
           <div className="bread-div">
@@ -111,7 +110,6 @@ const Detail: React.FC = (props: PropsType) => {
           </Affix>
         </Col>
       </Row>
-      <Footer />
     </div>
   );
 };

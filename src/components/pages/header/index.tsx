@@ -45,8 +45,8 @@ const Header: React.FC = () => {
     getItem("首页", "home", <HomeOutlined />),
     getItem("文章", "article", <FormOutlined />, articleTypeList),
     getItem("记录", "record", <RocketOutlined />),
-    getItem("说说", "3", <ShareAltOutlined />),
-    getItem("照片", "4", <SmileOutlined />),
+    getItem("说说", "say", <ShareAltOutlined />),
+    getItem("图片", "picture", <SmileOutlined />),
     getItem("留言", "6", <MessageOutlined />),
     getItem("聊天室", "7", <MessageOutlined />),
     getItem("友链", "5", <SmileOutlined />),
@@ -68,6 +68,10 @@ const Header: React.FC = () => {
       navigate(`/article/${e.key}`);
     } else if (e.key === "record") {
       navigate("/record");
+    } else if (e.key === "say") {
+      navigate("/say");
+    } else if (e.key === "picture") {
+      navigate("/picture");
     }
   };
   return (

@@ -51,7 +51,6 @@ const Article: React.FC = () => {
   };
   return (
     <div>
-      <Header />
       <BackTop>
         <div className="ant-back-top-inner">
           <RocketOutlined />
@@ -100,7 +99,6 @@ const Article: React.FC = () => {
           {/* <Advert />  */}
         </Col>
       </Row>
-      <Footer />
     </div>
   );
 };

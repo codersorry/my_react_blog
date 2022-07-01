@@ -16,8 +16,6 @@ const Record = () => {
   }, []);
   return (
     <div>
-      <Header />
-
       <Row
         className="comm-main"
         justify="center"
@@ -193,7 +191,6 @@ const Record = () => {
           <Author />
         </Col>
       </Row>
-      <Footer />
     </div>
   );
 };
