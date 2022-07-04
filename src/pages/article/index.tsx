@@ -1,24 +1,19 @@
-import React, { useState, useEffect } from "react";
-import { useNavigate, useParams } from "react-router-dom";
-import { BackTop, Row, Col, List } from "antd";
-import {
-  RocketOutlined,
-  CalendarOutlined,
-  FolderOutlined,
-  FireOutlined,
-} from "@ant-design/icons";
-import Header from "@/components/pages/header";
-import Author from "@/components/pages/author";
-import Footer from "@/components/pages/footer";
-import marked from "marked";
-import hljs from "highlight.js";
-import "highlight.js/styles/monokai-sublime.css";
-import "./index.css";
-import timeTrans from "@/utils/tools/timeTrans";
-import { getArticleListByTypeId } from "@/services/pages/article";
-import { ArticleListDataType } from "@/services/pages/home";
+import React, { useState, useEffect } from 'react'
+import { useNavigate, useParams } from 'react-router-dom'
+import { BackTop, Row, Col, List } from 'antd'
+import { RocketOutlined, CalendarOutlined, FolderOutlined, FireOutlined } from '@ant-design/icons'
+import Header from '@/components/pages/header'
+import Author from '@/components/pages/author'
+import Footer from '@/components/pages/footer'
+import marked from 'marked'
+import hljs from 'highlight.js'
+import 'highlight.js/styles/monokai-sublime.css'
+import './index.css'
+import timeTrans from '@/utils/tools/timeTrans'
+import { getArticleListByTypeId } from '@/services/pages/article'
+import { ArticleListDataType } from '@/services/pages/home'
 
-const renderer = new marked.Renderer();
+const renderer = new marked.Renderer()
 marked.setOptions({
   renderer: renderer,
   gfm: true, //启动类似Github样式的Markdown,填写true或者false
@@ -29,50 +24,50 @@ marked.setOptions({
   smartLists: true, //优化列表输出，这个填写ture之后，你的样式会好看很多，所以建议设置成ture
   smartypants: true,
   highlight: function (code: any) {
-    return hljs.highlightAuto(code).value;
+    return hljs.highlightAuto(code).value
   },
-});
+})
 
 const Article: React.FC = () => {
-  const navigate = useNavigate();
-  const { id } = useParams();
-  const [list, setList] = useState<ArticleListDataType[]>([]);
+  const navigate = useNavigate()
+  const { id } = useParams()
+  const [list, setList] = useState<ArticleListDataType[]>([])
   useEffect(() => {
     getArticleListByTypeId(id).then((res) => {
-      debugger;
-      setList(res.data);
-    });
-  }, [id]);
+      debugger
+      setList(res.data)
+    })
+  }, [id])
   //标题点击
   const titleClick = (id: number) => {
     navigate(`/detail/${id}`, {
       replace: true,
-    });
-  };
+    })
+  }
   return (
     <div>
       <BackTop>
-        <div className="ant-back-top-inner">
+        <div className='ant-back-top-inner'>
           <RocketOutlined />
         </div>
       </BackTop>
-      <Row className="comm-main" justify="center">
-        <Col className="comm-left" xs={23} sm={18} md={14} lg={14} xl={14}>
+      <Row className='comm-main' justify='center'>
+        <Col className='comm-left' xs={23} sm={18} md={14} lg={14} xl={14}>
           <List
             header={<div>最新日志</div>}
-            itemLayout="vertical"
+            itemLayout='vertical'
             dataSource={list}
             renderItem={(item) => (
               <List.Item>
                 <div
-                  className="list-title"
+                  className='list-title'
                   onClick={() => {
-                    titleClick(item.id);
+                    titleClick(item.id)
                   }}
                 >
                   {item.title}
                 </div>
-                <div className="list-icon">
+                <div className='list-icon'>
                   <span>
                     <CalendarOutlined />
                     {timeTrans(item.addTime, 2)}
@@ -86,21 +81,18 @@ const Article: React.FC = () => {
                     {item.view_count}
                   </span>
                 </div>
-                <div
-                  className="comm-right"
-                  dangerouslySetInnerHTML={{ __html: marked(item.introduce) }}
-                ></div>
+                <div className='comm-right' dangerouslySetInnerHTML={{ __html: marked(item.introduce) }}></div>
               </List.Item>
             )}
           />
         </Col>
-        <Col className="commRight" xs={0} sm={0} md={4} lg={4} xl={4}>
+        <Col className='commRight' xs={0} sm={0} md={4} lg={4} xl={4}>
           <Author />
           {/* <Advert />  */}
         </Col>
       </Row>
     </div>
-  );
-};
+  )
+}
 
-export default Article;
+export default Article
