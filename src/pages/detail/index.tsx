@@ -72,15 +72,15 @@ const Detail: React.FC = (props: PropsType) => {
             </Breadcrumb>
           </div>
           <div>
-            <div className='detailed-title'>{articleContent?.title}</div>
+            <div className='detailed-title'>{articleContent?.article_title}</div>
             <div className='list-icon'>
               <span>
                 <CalendarOutlined />
-                {timeTrans(articleContent?.addTime)}
+                {timeTrans(articleContent?.publish_time)}
               </span>
               <span>
                 <FolderOutlined />
-                {articleContent?.typeName}
+                {articleContent?.type_name}
               </span>
               <span>
                 <FireOutlined />

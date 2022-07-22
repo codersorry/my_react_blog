@@ -10,6 +10,7 @@ import { ArticleListDataType } from "@/services/pages/home";
 const Record = () => {
   const [timeLineList, setTimeLineList] = useState<ArticleListDataType[]>([]);
   useEffect(() => {
+    window.scrollTo(0, 0)
     getArticleList().then((res) => {
       setTimeLineList(res.data);
     });
@@ -39,7 +40,7 @@ const Record = () => {
               </Timeline.Item>
 
               {timeLineList.map((i) => {
-                return <Timeline.Item>{i.title}</Timeline.Item>;
+                return <Timeline.Item>{i.article_title}</Timeline.Item>;
               })}
 
               <Timeline.Item>Create a services site 2015-09-01</Timeline.Item>

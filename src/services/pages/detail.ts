@@ -8,7 +8,7 @@ interface ArticleByIdType extends MyResponseType {
 
 export interface ArticleDetailType extends ArticleListDataType {
   article_content: any;
-  typeId: number;
+  type_id: number;
 }
 
 // 通过id获取文章详情内容

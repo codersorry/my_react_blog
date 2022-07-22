@@ -7,7 +7,7 @@ const Picture = () => {
   const [isLoading, setIsLoading] = useState(false)
   const [pictureList, setPictureList] = useState<any>([])
   useEffect(() => {
-    debugger
+    window.scrollTo(0, 0)
     isload = 0
     var arr = new Array(74)
     for (let i = 0; i < arr.length; i++) {

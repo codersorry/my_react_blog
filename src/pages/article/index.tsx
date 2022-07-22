@@ -33,8 +33,8 @@ const Article: React.FC = () => {
   const { id } = useParams()
   const [list, setList] = useState<ArticleListDataType[]>([])
   useEffect(() => {
+    window.scrollTo(0, 0)
     getArticleListByTypeId(id).then((res) => {
-      debugger
       setList(res.data)
     })
   }, [id])
@@ -62,26 +62,26 @@ const Article: React.FC = () => {
                 <div
                   className='list-title'
                   onClick={() => {
-                    titleClick(item.id)
+                    titleClick(item.article_id)
                   }}
                 >
-                  {item.title}
+                  {item.article_title}
                 </div>
                 <div className='list-icon'>
                   <span>
                     <CalendarOutlined />
-                    {timeTrans(item.addTime, 2)}
+                    {timeTrans(item.publish_time, 2)}
                   </span>
                   <span>
                     <FolderOutlined />
-                    {item.typeName}
+                    {item.type_name}
                   </span>
                   <span>
                     <FireOutlined />
                     {item.view_count}
                   </span>
                 </div>
-                <div className='comm-right' dangerouslySetInnerHTML={{ __html: marked(item.introduce) }}></div>
+                <div className='comm-right' dangerouslySetInnerHTML={{ __html: marked(item.article_introduce) }}></div>
               </List.Item>
             )}
           />
