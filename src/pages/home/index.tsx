@@ -34,7 +34,7 @@ const Home: React.FC = () => {
   useEffect(() => {
     window.scrollTo(0, 0)
     getArticleList().then((res) => {
-      setList(res.data)
+      setList(res.data.articles)
     })
   }, [])
   //标题点击

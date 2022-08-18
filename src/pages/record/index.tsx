@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from "react";
-import Header from "@/components/pages/header";
 import { Row, Col, Timeline, Spin, message } from "antd";
 import { ClockCircleOutlined } from "@ant-design/icons";
-import Footer from "@/components/pages/footer";
 import Author from "@/components/pages/author";
 import { getArticleList } from "@/services/pages/home";
 import { ArticleListDataType } from "@/services/pages/home";
@@ -12,7 +10,7 @@ const Record = () => {
   useEffect(() => {
     window.scrollTo(0, 0)
     getArticleList().then((res) => {
-      setTimeLineList(res.data);
+      setTimeLineList(res.data.articles);
     });
   }, []);
   return (

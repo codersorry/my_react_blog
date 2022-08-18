@@ -1,10 +1,9 @@
 import React, { useState, useEffect } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
-import { BackTop, Row, Col, List } from 'antd'
+import { BackTop, Row, Col, List, Pagination } from 'antd'
+import type { PaginationProps } from 'antd'
 import { RocketOutlined, CalendarOutlined, FolderOutlined, FireOutlined } from '@ant-design/icons'
-import Header from '@/components/pages/header'
 import Author from '@/components/pages/author'
-import Footer from '@/components/pages/footer'
 import marked from 'marked'
 import hljs from 'highlight.js'
 import 'highlight.js/styles/monokai-sublime.css'
@@ -12,6 +11,7 @@ import './index.css'
 import timeTrans from '@/utils/tools/timeTrans'
 import { getArticleListByTypeId } from '@/services/pages/article'
 import { ArticleListDataType } from '@/services/pages/home'
+import ArticleItem from './cpns/articleItem'
 
 const renderer = new marked.Renderer()
 marked.setOptions({
@@ -32,10 +32,16 @@ const Article: React.FC = () => {
   const navigate = useNavigate()
   const { id } = useParams()
   const [list, setList] = useState<ArticleListDataType[]>([])
+  const [page, setPage] = useState<number>(1)
+  const [pageSize, setPageSize] = useState<number>(10)
+  const [total, setTotal] = useState<number>(0)
   useEffect(() => {
     window.scrollTo(0, 0)
-    getArticleListByTypeId(id).then((res) => {
-      setList(res.data)
+    setPage(1)
+    setPageSize(10)
+    getArticleListByTypeId(id, { page: 1, pageSize: 10 }).then((res) => {
+      setList(res.data.articles)
+      setTotal(res.data.total)
     })
   }, [id])
   //标题点击
@@ -44,6 +50,31 @@ const Article: React.FC = () => {
       replace: true,
     })
   }
+
+  const onShowSizeChange: PaginationProps['onShowSizeChange'] = (page, pageSize) => {
+    setPage(page)
+    setPageSize(pageSize)
+    getArticleListByTypeId(id, { page: 1, pageSize }).then((res) => {
+      setList(res.data.articles)
+      setTotal(res.data.total)
+      window.scrollTo(0, 0)
+    })
+  }
+
+  const itemRender: PaginationProps['itemRender'] = (_, type, originalElement) => {
+    return originalElement
+  }
+
+  const onChange: PaginationProps['onChange'] = (page, pageSize) => {
+    setPage(page)
+    setPageSize(pageSize)
+    getArticleListByTypeId(id, { page: page, pageSize }).then((res) => {
+      setList(res.data.articles)
+      setTotal(res.data.total)
+      window.scrollTo(0, 0)
+    })
+  }
+
   return (
     <div>
       <BackTop>
@@ -53,7 +84,7 @@ const Article: React.FC = () => {
       </BackTop>
       <Row className='comm-main' justify='center'>
         <Col className='comm-left' xs={23} sm={18} md={14} lg={14} xl={14}>
-          <List
+          {/* <List
             header={<div>最新日志</div>}
             itemLayout='vertical'
             dataSource={list}
@@ -84,6 +115,20 @@ const Article: React.FC = () => {
                 <div className='comm-right' dangerouslySetInnerHTML={{ __html: marked(item.article_introduce) }}></div>
               </List.Item>
             )}
+          /> */}
+          {list.map((item) => {
+            return <ArticleItem curItem={item} />
+          })}
+          <Pagination
+            total={total}
+            current={page}
+            pageSize={pageSize}
+            showSizeChanger
+            onShowSizeChange={onShowSizeChange}
+            itemRender={itemRender}
+            onChange={onChange}
+            defaultCurrent={1}
+            pageSizeOptions={[10, 15, 20]}
           />
         </Col>
         <Col className='commRight' xs={0} sm={0} md={4} lg={4} xl={4}>
