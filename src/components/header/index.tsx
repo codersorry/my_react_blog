@@ -34,9 +34,6 @@ const Header: React.FC = () => {
   const [articleTypeList, setArticleTypeList] = useState([])
   const header = useSelector<rootState, HeaderState>((state) => state.header)
   useEffect(() => {
-    // getArticleTypeList().then((res) => {
-    //   mapArr(res.data)
-    // })
     dispatch(get_article_type())
   }, [])
 

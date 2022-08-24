@@ -11,7 +11,6 @@ const initHeaderState: HeaderState = {
 }
 
 const header = (state = initHeaderState, action: { type: any; data: any }) => {
-  debugger
   switch (action.type) {
     case HEADER.GET_ARTICLE_TYPE:
       return Object.assign({}, state, action)
