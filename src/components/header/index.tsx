@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { Affix, Drawer, Row, Col, Menu, message, Modal, Tooltip } from 'antd'
+import { Row, Col, Menu, Tooltip } from 'antd'
 import type { MenuProps } from 'antd'
 import './index.css'
 import {
@@ -11,9 +11,12 @@ import {
   RocketOutlined,
   UserOutlined,
 } from '@ant-design/icons'
+import { get_article_type } from '@/store/actions/header'
+import { useNavigate } from 'react-router-dom'
+import { useDispatch, useSelector } from 'react-redux'
+import { HeaderState } from '@/store/reducers/header'
+import { rootState } from '@/store'
 import { ArticleTypeType } from '@/services/components/header'
-import { getArticleTypeList } from '@/services/components/header'
-import { useNavigate, Outlet } from 'react-router-dom'
 
 type MenuItem = Required<MenuProps>['items'][number]
 
@@ -27,7 +30,20 @@ function getItem(label: React.ReactNode, key: React.Key, icon?: React.ReactNode,
 }
 
 const Header: React.FC = () => {
+  const dispatch = useDispatch()
   const [articleTypeList, setArticleTypeList] = useState([])
+  const header = useSelector<rootState, HeaderState>((state) => state.header)
+  useEffect(() => {
+    // getArticleTypeList().then((res) => {
+    //   mapArr(res.data)
+    // })
+    dispatch(get_article_type())
+  }, [])
+
+  useEffect(() => {
+    mapArr(header.articleType)
+  }, [header])
+
   const mapArr = (data: ArticleTypeType[]) => {
     const arr: any = []
     data.forEach((item: ArticleTypeType) => {
@@ -47,11 +63,6 @@ const Header: React.FC = () => {
     getItem('友链', '5', <SmileOutlined />),
     getItem('关于', '8', <UserOutlined />),
   ]
-  useEffect(() => {
-    getArticleTypeList().then((res) => {
-      mapArr(res.data)
-    })
-  }, [])
 
   const navigate = useNavigate()
   //点击菜单跳转路由

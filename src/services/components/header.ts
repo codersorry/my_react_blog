@@ -1,7 +1,7 @@
 import myRequest from '@/utils/request'
 import { MyResponseType } from '../type'
 
-export interface ArticleTypeType extends MyResponseType {
+export interface ArticleResType extends MyResponseType {
   data: ArticleTypeType[]
 }
 export interface ArticleTypeType {
@@ -12,7 +12,7 @@ export interface ArticleTypeType {
 
 // 获取文章类型
 export async function getArticleTypeList() {
-  return myRequest.get<ArticleTypeType>({
+  return myRequest.get<ArticleResType>({
     url: '/default/getArticleTypeList',
   })
 }

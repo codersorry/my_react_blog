@@ -117,7 +117,7 @@ const Article: React.FC = () => {
             </Breadcrumb>
           </div>
           {list.map((item) => {
-            return <ArticleItem curItem={item} />
+            return <ArticleItem key={item.article_id} curItem={item} />
           })}
           <Pagination
             total={total}

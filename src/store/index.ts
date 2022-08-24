@@ -15,4 +15,6 @@ const stroe = createStore(reducers, composeWithDevTools(applyMiddleware(middleWa
 //运行saga
 middleWareSaga.run(defSaga)
 
+export type rootState = ReturnType<typeof reducers>
+
 export default stroe
