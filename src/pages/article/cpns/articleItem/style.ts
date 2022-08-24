@@ -3,21 +3,28 @@ import styled from 'styled-components'
 export const ArticleItemStyled = styled.div`
   box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.2);
   background-color: #f6f6f6;
-  height: 370px;
+  height: 380px;
   margin: 20px 10px;
   padding: 10px;
 
   &:hover {
-    box-shadow: 5px 5px 5px 2px rgba(0, 0, 0, 0.3);
+    box-shadow: 4px 4px 4px 2px rgba(0, 0, 0, 0.2);
   }
 
   .title {
     font-size: 18px;
-    font-weight: 550px;
+    font-weight: 550;
+    cursor: pointer;
   }
   .imgDiv {
     height: 260px;
     background-color: skyblue;
+  }
+  .tag {
+    margin-left: 20px;
+  }
+  .margin5px {
+    margin: 5px;
   }
   .introduce {
     text-overflow: -o-ellipsis-lastline;

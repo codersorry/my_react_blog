@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Row, Col, Timeline, Spin, message } from "antd";
 import { ClockCircleOutlined } from "@ant-design/icons";
-import Author from "@/components/pages/author";
+import Author from "@/components/author";
 import { getArticleList } from "@/services/pages/home";
 import { ArticleListDataType } from "@/services/pages/home";
 

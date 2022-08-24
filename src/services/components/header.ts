@@ -1,5 +1,5 @@
 import myRequest from '@/utils/request'
-import { MyResponseType } from '../../type'
+import { MyResponseType } from '../type'
 
 export interface ArticleTypeType extends MyResponseType {
   data: ArticleTypeType[]
@@ -7,6 +7,7 @@ export interface ArticleTypeType extends MyResponseType {
 export interface ArticleTypeType {
   type_id: number
   type_name: string
+  type_describe: string
 }
 
 // 获取文章类型

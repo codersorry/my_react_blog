@@ -7,9 +7,7 @@ import hljs from 'highlight.js'
 import './index.css'
 
 import Tocify from './cpns/blogBar'
-import Header from '@/components/pages/header'
-import Author from '@/components/pages/author'
-import Footer from '@/components/pages/footer'
+import Author from '@/components/author'
 import { getArticleById } from '@/services/pages/detail'
 
 import { ArticleDetailType } from '@/services/pages/detail'

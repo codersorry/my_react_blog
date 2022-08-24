@@ -11,8 +11,8 @@ import {
   RocketOutlined,
   UserOutlined,
 } from '@ant-design/icons'
-import { ArticleTypeType } from '@/services/components/pages/header'
-import { getArticleTypeList } from '@/services/components/pages/header'
+import { ArticleTypeType } from '@/services/components/header'
+import { getArticleTypeList } from '@/services/components/header'
 import { useNavigate, Outlet } from 'react-router-dom'
 
 type MenuItem = Required<MenuProps>['items'][number]

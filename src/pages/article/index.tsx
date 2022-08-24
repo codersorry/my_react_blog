@@ -1,17 +1,47 @@
 import React, { useState, useEffect } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
-import { BackTop, Row, Col, List, Pagination } from 'antd'
+import { BackTop, Row, Col, Breadcrumb, Pagination, Menu } from 'antd'
 import type { PaginationProps } from 'antd'
-import { RocketOutlined, CalendarOutlined, FolderOutlined, FireOutlined } from '@ant-design/icons'
-import Author from '@/components/pages/author'
+import { RocketOutlined } from '@ant-design/icons'
+import Author from '@/components/author'
 import marked from 'marked'
 import hljs from 'highlight.js'
 import 'highlight.js/styles/monokai-sublime.css'
 import './index.css'
-import timeTrans from '@/utils/tools/timeTrans'
 import { getArticleListByTypeId } from '@/services/pages/article'
 import { ArticleListDataType } from '@/services/pages/home'
 import ArticleItem from './cpns/articleItem'
+
+const menu = (
+  <Menu
+    items={[
+      {
+        key: '1',
+        label: (
+          <a target='_blank' rel='noopener noreferrer' href='http://www.alipay.com/'>
+            General
+          </a>
+        ),
+      },
+      {
+        key: '2',
+        label: (
+          <a target='_blank' rel='noopener noreferrer' href='http://www.taobao.com/'>
+            Layout
+          </a>
+        ),
+      },
+      {
+        key: '3',
+        label: (
+          <a target='_blank' rel='noopener noreferrer' href='http://www.tmall.com/'>
+            Navigation
+          </a>
+        ),
+      },
+    ]}
+  />
+)
 
 const renderer = new marked.Renderer()
 marked.setOptions({
@@ -44,12 +74,6 @@ const Article: React.FC = () => {
       setTotal(res.data.total)
     })
   }, [id])
-  //标题点击
-  const titleClick = (id: number) => {
-    navigate(`/detail/${id}`, {
-      replace: true,
-    })
-  }
 
   const onShowSizeChange: PaginationProps['onShowSizeChange'] = (page, pageSize) => {
     setPage(page)
@@ -84,38 +108,14 @@ const Article: React.FC = () => {
       </BackTop>
       <Row className='comm-main' justify='center'>
         <Col className='comm-left' xs={23} sm={18} md={14} lg={14} xl={14}>
-          {/* <List
-            header={<div>最新日志</div>}
-            itemLayout='vertical'
-            dataSource={list}
-            renderItem={(item) => (
-              <List.Item>
-                <div
-                  className='list-title'
-                  onClick={() => {
-                    titleClick(item.article_id)
-                  }}
-                >
-                  {item.article_title}
-                </div>
-                <div className='list-icon'>
-                  <span>
-                    <CalendarOutlined />
-                    {timeTrans(item.publish_time, 2)}
-                  </span>
-                  <span>
-                    <FolderOutlined />
-                    {item.type_name}
-                  </span>
-                  <span>
-                    <FireOutlined />
-                    {item.view_count}
-                  </span>
-                </div>
-                <div className='comm-right' dangerouslySetInnerHTML={{ __html: marked(item.article_introduce) }}></div>
-              </List.Item>
-            )}
-          /> */}
+          <div>
+            <Breadcrumb>
+              <Breadcrumb.Item>文章</Breadcrumb.Item>
+              <Breadcrumb.Item overlay={menu}>
+                <a href=''>General</a>
+              </Breadcrumb.Item>
+            </Breadcrumb>
+          </div>
           {list.map((item) => {
             return <ArticleItem curItem={item} />
           })}
