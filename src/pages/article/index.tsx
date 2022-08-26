@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { memo, useState, useEffect } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import { BackTop, Row, Col, Breadcrumb, Pagination, Menu } from 'antd'
 import type { PaginationProps, MenuProps } from 'antd'
@@ -35,7 +35,7 @@ marked.setOptions({
   },
 })
 
-const Article: React.FC = () => {
+const Article: React.FC = memo(() => {
   const navigate = useNavigate()
   const header = useSelector<rootState, HeaderState>((state) => state.header)
   const { id } = useParams()
@@ -56,6 +56,7 @@ const Article: React.FC = () => {
       setTotal(res.data.total)
     })
     // 更新面包屑当前页的文章类型
+    console.log('id', id)
     id && articleTypeList.length > 0 && setCurArticleType(idMapArticleType(id, articleTypeList))
   }, [id])
 
@@ -67,6 +68,7 @@ const Article: React.FC = () => {
     })
     setArticleTypeList(curArr)
     // 更新面包屑当前页的文章类型
+    console.log('header', header)
     id && curArr.length > 0 && setCurArticleType(idMapArticleType(id, curArr))
   }, [header])
 
@@ -78,10 +80,9 @@ const Article: React.FC = () => {
 
   // 根据id匹配当前页文章类型名称
   const idMapArticleType = (id: any, list: CurDropMenuItemType[]) => {
-    debugger
     let typeName = ''
     list.some((i) => {
-      if (id == i.key) {
+      if (id * 1 === i.key * 1) {
         typeName = i.label
         return true
       } else {
@@ -155,6 +156,6 @@ const Article: React.FC = () => {
       </Row>
     </div>
   )
-}
+})
 
 export default Article

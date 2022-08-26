@@ -1,3 +1,4 @@
+import React, { memo } from 'react'
 import { ArticleListDataType } from '@/services/pages/home'
 import { ArticleItemStyled } from './style'
 import { CalendarOutlined, FolderOutlined, FireOutlined } from '@ant-design/icons'
@@ -8,7 +9,7 @@ interface ArticleItemProps {
   curItem?: ArticleListDataType
 }
 
-const ArticleItem: React.FC<ArticleItemProps> = (props: ArticleItemProps) => {
+const ArticleItem: React.FC<ArticleItemProps> = memo((props: ArticleItemProps) => {
   const navigate = useNavigate()
   //文章点击跳转详情
   const itemClick = (id: any) => {
@@ -31,14 +32,17 @@ const ArticleItem: React.FC<ArticleItemProps> = (props: ArticleItemProps) => {
         <div className='margin5px'>
           <span>
             <CalendarOutlined style={{ color: '#0099ff' }} />
+            &nbsp;
             {timeTrans(props.curItem?.publish_time)}
           </span>
           <span className='tag'>
             <FolderOutlined />
+            &nbsp;
             {props.curItem?.type_name}
           </span>
           <span className='tag'>
             <FireOutlined style={{ color: 'red' }} />
+            &nbsp;
             {props.curItem?.view_count}
           </span>
         </div>
@@ -56,6 +60,6 @@ const ArticleItem: React.FC<ArticleItemProps> = (props: ArticleItemProps) => {
       </ArticleItemStyled>
     </div>
   )
-}
+})
 
 export default ArticleItem

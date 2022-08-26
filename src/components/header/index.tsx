@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useState, useEffect } from 'react'
 import { Row, Col, Menu, Tooltip } from 'antd'
 import type { MenuProps } from 'antd'
@@ -100,7 +101,7 @@ const Header: React.FC = () => {
               Darry
             </span>
           </Tooltip>
-          <span className='header-txt'>热爱前端开发，每天GET一个新知识</span>
+          <span className='header-txt'>每天GET一个新知识</span>
         </Col>
         <Col className='memu-div' xs={4} sm={4} md={8} lg={8} xl={9}>
           <Menu

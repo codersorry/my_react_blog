@@ -1,5 +1,5 @@
 import React from 'react'
-import 'antd/dist/antd.css'
+import 'antd/dist/antd.min.css'
 import ReactDOM from 'react-dom/client'
 import './index.css'
 import App from './App'
@@ -10,9 +10,9 @@ import store from './store'
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement)
 root.render(
   <Provider store={store}>
-    <React.StrictMode>
-      <App />
-    </React.StrictMode>
+    {/* <React.StrictMode> */}
+    <App />
+    {/* </React.StrictMode> */}
   </Provider>,
 )
 
