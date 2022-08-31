@@ -7,7 +7,7 @@ import Author from '@/components/author'
 import marked from 'marked'
 import hljs from 'highlight.js'
 import 'highlight.js/styles/monokai-sublime.css'
-import './index.css'
+import { ArticleStyled } from './style'
 import { getArticleListByTypeId } from '@/services/pages/article'
 import { ArticleListDataType } from '@/services/pages/home'
 import ArticleItem from './cpns/articleItem'
@@ -55,9 +55,6 @@ const Article: React.FC = memo(() => {
       setList(res.data.articles)
       setTotal(res.data.total)
     })
-    // 更新面包屑当前页的文章类型
-    console.log('id', id)
-    id && articleTypeList.length > 0 && setCurArticleType(idMapArticleType(id, articleTypeList))
   }, [id])
 
   //面包屑下拉文章类型列表
@@ -67,10 +64,12 @@ const Article: React.FC = memo(() => {
       curArr.push({ key: i.type_id, label: i.type_name })
     })
     setArticleTypeList(curArr)
-    // 更新面包屑当前页的文章类型
-    console.log('header', header)
-    id && curArr.length > 0 && setCurArticleType(idMapArticleType(id, curArr))
   }, [header])
+
+  useEffect(() => {
+    // 更新面包屑当前页的文章类型
+    id && articleTypeList.length > 0 && setCurArticleType(idMapArticleType(id, articleTypeList))
+  }, [id, articleTypeList])
 
   // 下拉文章类型点击跳转
   const dropMenuClick: MenuProps['onClick'] = ({ key }) => {
@@ -120,7 +119,7 @@ const Article: React.FC = memo(() => {
   }
 
   return (
-    <div>
+    <ArticleStyled>
       <BackTop>
         <div className='ant-back-top-inner'>
           <RocketOutlined />
@@ -131,7 +130,9 @@ const Article: React.FC = memo(() => {
           <div>
             <Breadcrumb>
               <Breadcrumb.Item>文章</Breadcrumb.Item>
-              <Breadcrumb.Item overlay={menu}>{curArticleType}</Breadcrumb.Item>
+              <Breadcrumb.Item overlay={menu} className='breadcrumbItem'>
+                {curArticleType}
+              </Breadcrumb.Item>
             </Breadcrumb>
           </div>
           {list.map((item) => {
@@ -154,7 +155,7 @@ const Article: React.FC = memo(() => {
           {/* <Advert />  */}
         </Col>
       </Row>
-    </div>
+    </ArticleStyled>
   )
 })
 

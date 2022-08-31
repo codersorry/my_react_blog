@@ -3,7 +3,7 @@ import styled from 'styled-components'
 export const ArticleItemStyled = styled.div`
   box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.2);
   background-color: #f6f6f6;
-  height: 380px;
+  /* height: 380px; */
   margin: 20px 10px;
   padding: 10px;
 
@@ -12,21 +12,43 @@ export const ArticleItemStyled = styled.div`
   }
 
   .title {
+    margin-left: 3px;
     font-size: 18px;
     font-weight: 550;
     cursor: pointer;
+
+    text-overflow: -o-ellipsis-lastline;
+    overflow: hidden; //溢出内容隐藏
+    text-overflow: ellipsis; //文本溢出部分用省略号表示
+    display: -webkit-box; //特别显示模式
+    -webkit-line-clamp: 1; //行数
+    line-clamp: 1;
+    -webkit-box-orient: vertical; //盒子中内容竖直排列
   }
   .imgDiv {
     height: 260px;
     background-color: skyblue;
   }
-  .tag {
-    margin-left: 20px;
+  .article_info {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    flex-wrap: wrap;
+    margin: 0px -7px;
+    > div {
+      margin-left: 10px;
+    }
   }
-  .margin5px {
-    margin: 5px;
+
+  .tag_item {
+    padding: 0px 10px;
+    border-radius: 3px;
+    margin-right: 5px;
+    color: white;
   }
+
   .introduce {
+    margin-left: 3px;
     text-overflow: -o-ellipsis-lastline;
     overflow: hidden; //溢出内容隐藏
     text-overflow: ellipsis; //文本溢出部分用省略号表示
@@ -40,6 +62,7 @@ export const ArticleItemStyled = styled.div`
   .image_box {
     /* cursor: url("https://blog-1303885568.cos.ap-chengdu.myqcloud.com/img/DSY-1605510419334.png"),
     auto; */
+    margin: 5px 0;
     max-height: 260px;
     cursor: pointer;
     overflow: hidden;
