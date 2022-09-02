@@ -4,8 +4,10 @@ export const ArticleItemStyled = styled.div`
   box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.2);
   background-color: #f6f6f6;
   /* height: 380px; */
-  margin: 20px 10px;
+  margin: 0px 10px 20px 10px;
   padding: 10px;
+  position: relative;
+  overflow: hidden;
 
   &:hover {
     box-shadow: 4px 4px 4px 2px rgba(0, 0, 0, 0.2);
@@ -25,6 +27,22 @@ export const ArticleItemStyled = styled.div`
     line-clamp: 1;
     -webkit-box-orient: vertical; //盒子中内容竖直排列
   }
+
+  .isTop {
+    position: absolute;
+    right: -48px;
+    width: 140px;
+    height: 25px;
+    background-color: red;
+    text-align: center;
+    line-height: 25px;
+    color: white;
+    transform: rotate(45deg);
+    .topIcon {
+      transform: rotate(-45deg);
+    }
+  }
+
   .imgDiv {
     height: 260px;
     background-color: skyblue;
@@ -41,10 +59,11 @@ export const ArticleItemStyled = styled.div`
   }
 
   .tag_item {
-    padding: 0px 10px;
+    /* padding: 0px 10px;
     border-radius: 3px;
     margin-right: 5px;
-    color: white;
+    color: white; */
+    font-weight: 700;
   }
 
   .introduce {

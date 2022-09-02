@@ -41,7 +41,7 @@ const Detail: React.FC = (props: PropsType) => {
     getArticleById(id).then((res) => {
       setArticleContent(res.data[0])
     })
-  }, [])
+  }, [id])
 
   //返回主页
   const backToHome = () => {

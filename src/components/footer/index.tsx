@@ -1,13 +1,13 @@
-import React from "react";
-import "./index.css";
+import React from 'react'
+import './index.css'
 
 const Footer: React.FC = () => {
   return (
-    <div className="footer-div">
+    <div className='footer-div'>
       <div>By React+Node+AntDesign</div>
-      <div>瑞瑞子</div>
+      <div>Darry</div>
     </div>
-  );
-};
+  )
+}
 
-export default Footer;
+export default Footer

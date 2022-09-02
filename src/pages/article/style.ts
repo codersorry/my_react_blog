@@ -31,7 +31,18 @@ export const ArticleStyled = styled.div`
     padding: 0 10px;
   }
 
+  .breadcrumb {
+    margin: 3px 10px;
+    font-weight: 600;
+  }
+
   .breadcrumbItem {
     cursor: pointer;
+  }
+
+  .paginationStyle {
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
 `

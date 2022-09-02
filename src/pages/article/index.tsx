@@ -4,8 +4,7 @@ import { BackTop, Row, Col, Breadcrumb, Pagination, Menu } from 'antd'
 import type { PaginationProps, MenuProps } from 'antd'
 import { RocketOutlined } from '@ant-design/icons'
 import Author from '@/components/author'
-import marked from 'marked'
-import hljs from 'highlight.js'
+import Tags from '@/components/Tags'
 import 'highlight.js/styles/monokai-sublime.css'
 import { ArticleStyled } from './style'
 import { getArticleListByTypeId } from '@/services/pages/article'
@@ -19,21 +18,6 @@ interface CurDropMenuItemType {
   key: any
   label: any
 }
-
-const renderer = new marked.Renderer()
-marked.setOptions({
-  renderer: renderer,
-  gfm: true, //启动类似Github样式的Markdown,填写true或者false
-  pedantic: false, //只解析符合Markdown定义的，不修正Markdown的错误。填写true或者false
-  sanitize: false, //原始输出，忽略HTML标签，这个作为一个开发人员，一定要写flase
-  tables: true, //支持Github形式的表格，必须打开gfm选项
-  breaks: true, //支持Github换行符，必须打开gfm选项，填写true或者false
-  smartLists: true, //优化列表输出，这个填写ture之后，你的样式会好看很多，所以建议设置成ture
-  smartypants: true,
-  highlight: function (code: any) {
-    return hljs.highlightAuto(code).value
-  },
-})
 
 const Article: React.FC = memo(() => {
   const navigate = useNavigate()
@@ -126,8 +110,8 @@ const Article: React.FC = memo(() => {
         </div>
       </BackTop>
       <Row className='comm-main' justify='center'>
-        <Col className='comm-left' xs={23} sm={18} md={14} lg={14} xl={14}>
-          <div>
+        <Col className='comm-left' xs={23} sm={22} md={20} lg={14} xl={14}>
+          <div className='breadcrumb'>
             <Breadcrumb>
               <Breadcrumb.Item>文章</Breadcrumb.Item>
               <Breadcrumb.Item overlay={menu} className='breadcrumbItem'>
@@ -139,6 +123,7 @@ const Article: React.FC = memo(() => {
             return <ArticleItem key={item.article_id} curItem={item} />
           })}
           <Pagination
+            className='paginationStyle'
             total={total}
             current={page}
             pageSize={pageSize}
@@ -150,9 +135,9 @@ const Article: React.FC = memo(() => {
             pageSizeOptions={[10, 15, 20]}
           />
         </Col>
-        <Col className='commRight' xs={0} sm={0} md={4} lg={4} xl={4}>
+        <Col className='commRight' xs={0} sm={0} md={0} lg={5} xl={4}>
           <Author />
-          {/* <Advert />  */}
+          <Tags />
         </Col>
       </Row>
     </ArticleStyled>

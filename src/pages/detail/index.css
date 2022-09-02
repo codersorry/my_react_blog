@@ -88,6 +88,11 @@
 }
 
 /* markdown样式 */
+.detailed-content img {
+  max-width: 100%;
+  object-fit: contain;
+}
+
 pre {
   display: block;
   background-color: #283646 !important;

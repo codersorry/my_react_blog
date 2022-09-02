@@ -1,7 +1,8 @@
 import React, { memo } from 'react'
 import { ArticleListDataType } from '@/services/pages/home'
 import { ArticleItemStyled } from './style'
-import { CalendarOutlined, FolderOutlined, FireOutlined } from '@ant-design/icons'
+import { CalendarOutlined, FolderOutlined, FireOutlined, PushpinOutlined } from '@ant-design/icons'
+import { Tag } from 'antd'
 import timeTrans from '@/utils/tools/timeTrans'
 import { useNavigate } from 'react-router-dom'
 
@@ -27,6 +28,10 @@ const ArticleItem: React.FC<ArticleItemProps> = memo((props: ArticleItemProps) =
   }
   return (
     <ArticleItemStyled>
+      <div className='isTop'>
+        <PushpinOutlined className='topIcon' />
+        置顶
+      </div>
       <div
         className='title'
         onClick={() => {
@@ -51,13 +56,16 @@ const ArticleItem: React.FC<ArticleItemProps> = memo((props: ArticleItemProps) =
           &nbsp;
           {props.curItem?.view_count}
         </div>
-
         <div>
           {tagDemo.map((i) => {
             return (
-              <span className='tag_item' style={{ backgroundColor: i.tag_color }} key={i.tag_id}>
+              // 自己写的 Tag
+              // <span className='tag_item' style={{ backgroundColor: i.tag_color }} key={i.tag_id}>
+              //   {i.tag_name}
+              // </span>
+              <Tag className='tag_item' color={i.tag_color}>
                 {i.tag_name}
-              </span>
+              </Tag>
             )
           })}
         </div>
