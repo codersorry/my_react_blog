@@ -1,6 +1,11 @@
-import styled from 'styled-components'
+import styled from 'styled-components';
 
-export const ArticleStyled = styled.div`
+interface ArticleStyledPropsType {
+  isShowDetail: boolean;
+}
+
+export const ArticleStyled = styled.div<ArticleStyledPropsType>`
+  display: ${(props) => (props.isShowDetail ? 'none' : 'block')};
   .ant-back-top-inner {
     height: 40px;
     width: 40px;
@@ -45,4 +50,12 @@ export const ArticleStyled = styled.div`
     justify-content: center;
     align-items: center;
   }
-`
+
+  .loadingDiv {
+    width: 100%;
+    height: 500px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+`;

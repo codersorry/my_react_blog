@@ -1,13 +1,13 @@
-import React from 'react'
-import { Routes, Route, BrowserRouter } from 'react-router-dom'
-import Home from './pages/home'
-import Detail from './pages/detail'
-import Article from './pages/article'
-import Record from './pages/record'
-import Say from './pages/say'
-import Header from './components/header'
-import Footer from './components/footer'
-import Picture from './pages/picture'
+import React from 'react';
+import { Routes, Route, BrowserRouter } from 'react-router-dom';
+import Home from './pages/home';
+import Detail from './pages/detail';
+import Article from './pages/article';
+import Record from './pages/record';
+import Say from './pages/say';
+import Header from './components/header';
+import Footer from './components/footer';
+import Picture from './pages/picture';
 
 function App() {
   return (
@@ -15,7 +15,7 @@ function App() {
       <Header />
       <Routes>
         <Route path='/' element={<Home />} />
-        <Route path='/detail/:id' element={<Detail />} />
+        {/* <Route path='/detail/:id' element={<Detail />} /> */}
         <Route path='/article/:id' element={<Article />} />
         <Route path='/record' element={<Record />} />
         <Route path='/say' element={<Say />} />
@@ -28,7 +28,7 @@ function App() {
       </Routes>
       <Footer />
     </BrowserRouter>
-  )
+  );
 }
 
-export default App
+export default App;
