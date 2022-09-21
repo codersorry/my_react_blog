@@ -30,7 +30,7 @@ const Home: React.FC = () => {
   const navigate = useNavigate();
   const [list, setList] = useState<ArticleListDataType[]>([]);
   useEffect(() => {
-    window.scrollTo(0, 0);
+    // window.scrollTo(0, 0);
     getArticleList().then((res) => {
       setList(res.data.articles);
     });

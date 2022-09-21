@@ -16,8 +16,8 @@ import { HeaderState } from '@/store/reducers/header';
 import Detail from '@/pages/detail';
 
 interface CurDropMenuItemType {
-  key: any;
-  label: any;
+  key: number;
+  label: string;
 }
 
 const Article: React.FC = memo(() => {
@@ -35,12 +35,19 @@ const Article: React.FC = memo(() => {
   const [scrollTop, setScrollTop] = useState<number>(0); // 保存文章页滚动的高度
 
   useEffect(() => {
+    console.log(isShowDetail, scrollTop);
     !isShowDetail && window.scrollTo(0, scrollTop);
   }, [isShowDetail, scrollTop]);
 
+  useEffect(() => {
+    setTimeout(() => {
+      window.scrollTo(0, 0);
+    }, 10);
+  }, [list]);
+
   //监听url上id参数的变化，重新请求数据
   useEffect(() => {
-    window.scrollTo(0, 0);
+    setIsShowDetail(false); // id变化，需要显示文章页
     setPage(1);
     setPageSize(10);
     getArticleListByTypeId(id, { page: 1, pageSize: 10 }).then((res) => {
@@ -139,13 +146,15 @@ const Article: React.FC = memo(() => {
                 />
               );
             })}
-            <div className='loadingDiv'>
-              <Spin
-                spinning={list.length === 0 ? true : false}
-                indicator={<LoadingOutlined style={{ fontSize: 24 }} />}
-                tip='Loading...'
-                size='large'
-              />
+            <div style={{ display: list.length === 0 ? 'block' : 'none' }}>
+              <div className='loadingDiv'>
+                <Spin
+                  spinning={list.length === 0 ? true : false}
+                  indicator={<LoadingOutlined style={{ fontSize: 24 }} />}
+                  tip='Loading...'
+                  size='large'
+                />
+              </div>
             </div>
 
             <Pagination

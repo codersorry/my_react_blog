@@ -1,5 +1,5 @@
-import React, { useEffect } from 'react'
-import { Row, Col, List, Spin, Typography } from 'antd'
+import React, { useEffect } from 'react';
+import { Row, Col, List, Spin, Typography } from 'antd';
 import {
   CalendarOutlined,
   TwitterOutlined,
@@ -7,10 +7,10 @@ import {
   UserOutlined,
   EyeInvisibleOutlined,
   ArrowsAltOutlined,
-} from '@ant-design/icons'
-import Author from '@/components/author'
-import './index.css'
-const { Paragraph } = Typography
+} from '@ant-design/icons';
+import Author from '@/components/author';
+import './index.css';
+const { Paragraph } = Typography;
 
 const renderItem = [
   {
@@ -167,13 +167,14 @@ const renderItem = [
     fire: 152,
     sourceType: '学习笔记',
   },
-]
+];
 
 const Say = () => {
-  const routerData = (para: any) => {}
+  const routerData = (para: any) => {};
   useEffect(() => {
-    window.scrollTo(0, 0)
-  }, [])
+    debugger;
+    window.scrollTo(0, 0);
+  }, []);
   return (
     <div>
       <Row className='comm-main' justify='center' style={{ paddingTop: '3.2rem' }}>
@@ -295,7 +296,7 @@ const Say = () => {
                           <p
                             style={{ float: 'right' }}
                             onClick={() => {
-                              routerData(item.articleTitle)
+                              routerData(item.articleTitle);
                             }}
                           >
                             <ArrowsAltOutlined style={{ marginRight: 10 }} />
@@ -305,7 +306,7 @@ const Say = () => {
                       </div>
                     </div>
                   </List.Item>
-                )
+                );
               }}
             />
           </Spin>
@@ -315,7 +316,7 @@ const Say = () => {
         </Col>
       </Row>
     </div>
-  )
-}
+  );
+};
 
-export default Say
+export default Say;

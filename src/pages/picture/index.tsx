@@ -171,7 +171,6 @@ const Picture = () => {
     return lastBoxDis <= screenH + scrollTopH;
   };
   const load = () => {
-    debugger;
     isload += 1;
     if (isload === 74) {
       setIsLoading(false);
