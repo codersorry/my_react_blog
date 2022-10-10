@@ -1,4 +1,4 @@
-import React, { memo, useState, useEffect } from 'react';
+import React, { memo, useState, useEffect, useCallback } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { BackTop, Row, Col, Breadcrumb, Pagination, Menu, Spin } from 'antd';
 import type { PaginationProps, MenuProps } from 'antd';
@@ -14,6 +14,7 @@ import { useSelector } from 'react-redux';
 import { rootState } from '@/store';
 import { HeaderState } from '@/store/reducers/header';
 import Detail from '@/pages/detail';
+import InterSectionLazyLoad from '@/utils/tools/InterSectionLazyLoad';
 
 interface CurDropMenuItemType {
   key: number;
@@ -33,9 +34,19 @@ const Article: React.FC = memo(() => {
   const [isShowDetail, setIsShowDetail] = useState<boolean>(false); // 控制详情页的显示隐藏
   const [articleId, setArticleId] = useState(null); // 文章id
   const [scrollTop, setScrollTop] = useState<number>(0); // 保存文章页滚动的高度
+  const [isShowArray, setIsShowArray] = useState<boolean[]>([]);
+
+  //isShowArray变化循环设置默认值false
+  const setIsShowArrayFalse = useCallback((listLength: number) => {
+    let newArr = [];
+    for (let i = 0; i < listLength; i++) {
+      newArr.push(false);
+    }
+    setIsShowArray(newArr);
+    console.log(newArr);
+  }, []);
 
   useEffect(() => {
-    console.log(isShowDetail, scrollTop);
     !isShowDetail && window.scrollTo(0, scrollTop);
   }, [isShowDetail, scrollTop]);
 
@@ -43,6 +54,13 @@ const Article: React.FC = memo(() => {
     setTimeout(() => {
       window.scrollTo(0, 0);
     }, 10);
+
+    // list改变时，使用InterSectionLazyLoad懒加载
+    InterSectionLazyLoad('articeItem', (entry: any) => {
+      isShowArray[entry.target.className.split('Index-')[1]] = true;
+      setIsShowArray([...isShowArray]);
+      console.log(isShowArray);
+    });
   }, [list]);
 
   //监听url上id参数的变化，重新请求数据
@@ -53,8 +71,9 @@ const Article: React.FC = memo(() => {
     getArticleListByTypeId(id, { page: 1, pageSize: 10 }).then((res) => {
       setList(res.data.articles);
       setTotal(res.data.total);
+      setIsShowArrayFalse(res.data.articles.length);
     });
-  }, [id]);
+  }, [id, setIsShowArrayFalse]);
 
   //面包屑下拉文章类型列表
   useEffect(() => {
@@ -113,6 +132,7 @@ const Article: React.FC = memo(() => {
     getArticleListByTypeId(id, { page: page, pageSize }).then((res) => {
       setList(res.data.articles);
       setTotal(res.data.total);
+      setIsShowArrayFalse(res.data.articles.length);
       window.scrollTo(0, 0);
     });
   };
@@ -135,9 +155,11 @@ const Article: React.FC = memo(() => {
                 </Breadcrumb.Item>
               </Breadcrumb>
             </div>
-            {list.map((item) => {
+            {list.map((item, index) => {
               return (
                 <ArticleItem
+                  isShow={isShowArray[index]}
+                  index={index}
                   key={item.article_id}
                   curItem={item}
                   setIsShowDetail={setIsShowDetail}

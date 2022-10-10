@@ -4,12 +4,15 @@ import { ArticleItemStyled } from './style';
 import { CalendarOutlined, FolderOutlined, FireOutlined, PushpinOutlined } from '@ant-design/icons';
 import { Tag } from 'antd';
 import timeTrans from '@/utils/tools/timeTrans';
+import { errorImg } from '@/images/images';
 
 interface ArticleItemProps {
   curItem?: ArticleListDataType;
   setIsShowDetail: React.Dispatch<React.SetStateAction<boolean>>;
   setArticleId: React.Dispatch<React.SetStateAction<null>>;
   setScrollTop: React.Dispatch<React.SetStateAction<number>>;
+  index: number;
+  isShow: boolean;
 }
 
 const tagDemo = [
@@ -20,17 +23,18 @@ const tagDemo = [
 ];
 
 const ArticleItem: React.FC<ArticleItemProps> = memo((props) => {
+  const { curItem, setIsShowDetail, setArticleId, setScrollTop, index, isShow } = props;
   //文章点击跳转详情
   const itemClick = (id: any) => {
     debugger;
-    props.setScrollTop(document.documentElement.scrollTop);
+    setScrollTop(document.documentElement.scrollTop);
     if (id) {
-      props.setIsShowDetail(true);
-      props.setArticleId(id);
+      setIsShowDetail(true);
+      setArticleId(id);
     }
   };
   return (
-    <ArticleItemStyled>
+    <ArticleItemStyled className={`articeItem articeItemIndex-${index}`} isShow={isShow}>
       <div className='isTop'>
         <PushpinOutlined className='topIcon' />
         置顶
@@ -38,26 +42,26 @@ const ArticleItem: React.FC<ArticleItemProps> = memo((props) => {
       <div
         className='title'
         onClick={() => {
-          itemClick(props.curItem?.article_id);
+          itemClick(curItem?.article_id);
         }}
       >
-        {props.curItem?.article_title}
+        {curItem?.article_title}
       </div>
       <div className='article_info'>
         <div>
           <CalendarOutlined style={{ color: '#0099ff' }} />
           &nbsp;
-          {timeTrans(props.curItem?.publish_time)}
+          {timeTrans(curItem?.publish_time)}
         </div>
         <div>
           <FolderOutlined />
           &nbsp;
-          {props.curItem?.type_name}
+          {curItem?.type_name}
         </div>
         <div>
           <FireOutlined style={{ color: 'red' }} />
           &nbsp;
-          {props.curItem?.view_count}
+          {curItem?.view_count}
         </div>
         <div>
           {tagDemo.map((i) => {
@@ -76,13 +80,16 @@ const ArticleItem: React.FC<ArticleItemProps> = memo((props) => {
       <div
         className='image_box flex-wrap'
         onClick={() => {
-          itemClick(props.curItem?.article_id);
+          itemClick(curItem?.article_id);
         }}
       >
-        <img src='https://blog-1303885568.cos.ap-chengdu.myqcloud.com/img/DSY-1605245454618.jpg' alt='' />
+        <img
+          src={isShow ? 'https://blog-1303885568.cos.ap-chengdu.myqcloud.com/img/DSY-1605245454618.jpg' : errorImg}
+          alt=''
+        />
       </div>
-      <div className='introduce' title={props.curItem?.article_introduce}>
-        {props.curItem?.article_introduce}
+      <div className='introduce' title={curItem?.article_introduce}>
+        {curItem?.article_introduce}
       </div>
     </ArticleItemStyled>
   );

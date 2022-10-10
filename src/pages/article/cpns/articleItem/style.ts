@@ -1,6 +1,47 @@
-import styled from 'styled-components'
+import styled from 'styled-components';
 
-export const ArticleItemStyled = styled.div`
+interface ArticleItemStyledType {
+  isShow: boolean;
+}
+
+export const ArticleItemStyled = styled.div<ArticleItemStyledType>`
+  user-select: none; // 阻止文本选中
+  transition: all 0.3s;
+
+  animation: ${(props) => (props.isShow ? 'cssnice .7s ease-out forwards' : '')};
+  cursor: pointer;
+  font-size: 13px;
+  overflow: hidden;
+  transition: all 0.5s;
+  opacity: 0;
+  position: relative;
+  @keyframes cssnice {
+    0% {
+      opacity: 0;
+      transform: translate3d(-40%, 0, 0);
+    }
+    50% {
+      opacity: 1;
+      transform: translate3d(3%, 0, 0);
+    }
+    65% {
+      opacity: 1;
+      transform: translate3d(-2.5%, 0, 0);
+    }
+    80% {
+      opacity: 1;
+      transform: translate3d(0, 0, 0);
+    }
+    90% {
+      opacity: 1;
+      transform: translate3d(-1%, 0, 0);
+    }
+    100% {
+      opacity: 1;
+      transform: translate3d(0, 0, 0);
+    }
+  }
+
   box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.2);
   background-color: #f6f6f6;
   /* height: 380px; */
@@ -43,10 +84,6 @@ export const ArticleItemStyled = styled.div`
     }
   }
 
-  .imgDiv {
-    height: 260px;
-    background-color: skyblue;
-  }
   .article_info {
     display: flex;
     justify-content: flex-start;
@@ -83,6 +120,7 @@ export const ArticleItemStyled = styled.div`
     auto; */
     margin: 5px 0;
     max-height: 260px;
+    /* height: 260px; */
     cursor: pointer;
     overflow: hidden;
     border-radius: 6px;
@@ -100,4 +138,20 @@ export const ArticleItemStyled = styled.div`
     justify-content: center;
     align-items: center;
   }
-`
+
+  /* 以下是手机样式 */
+  @media not screen and (min-width: 50em) {
+    animation: ${(props) => (props.isShow ? 'cssnice .3s ease-out forwards' : '')};
+    @keyframes cssnice {
+      0% {
+        opacity: 0;
+        transform: scale(0);
+      }
+
+      100% {
+        opacity: 1;
+        transform: scale(1);
+      }
+    }
+  }
+`;
