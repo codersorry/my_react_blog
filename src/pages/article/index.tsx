@@ -4,7 +4,7 @@ import { BackTop, Row, Col, Breadcrumb, Pagination, Menu, Spin } from 'antd';
 import type { PaginationProps, MenuProps } from 'antd';
 import { RocketOutlined, LoadingOutlined } from '@ant-design/icons';
 import Author from '@/components/author';
-import Tags from '@/components/Tags';
+import Tags from '@/components/tags';
 import 'highlight.js/styles/monokai-sublime.css';
 import { ArticleStyled } from './style';
 import { getArticleListByTypeId } from '@/services/pages/article';
@@ -61,6 +61,7 @@ const Article: React.FC = memo(() => {
       setIsShowArray([...isShowArray]);
       console.log(isShowArray);
     });
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [list]);
 
   //监听url上id参数的变化，重新请求数据

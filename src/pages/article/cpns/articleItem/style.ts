@@ -51,6 +51,7 @@ export const ArticleItemStyled = styled.div<ArticleItemStyledType>`
   overflow: hidden;
 
   &:hover {
+    transition: all 0.2s;
     box-shadow: 4px 4px 4px 2px rgba(0, 0, 0, 0.2);
   }
 
