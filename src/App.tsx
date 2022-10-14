@@ -8,6 +8,7 @@ import Say from './pages/say';
 import Header from './components/header';
 import Footer from './components/footer';
 import Picture from './pages/picture';
+import BackTop from './components/backTop';
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
         <Route path='/say' element={<Say />} />
         <Route path='/picture' element={<Picture />} />
       </Routes>
+      <BackTop />
       <Footer />
     </BrowserRouter>
   );
