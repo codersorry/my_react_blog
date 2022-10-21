@@ -1,3 +1,4 @@
-import { HEADER } from '../constants'
+import { HEADER } from '../constants';
 
-export const get_article_type = () => ({ type: HEADER.GET_ARTICLE_TYPE })
+export const set_header_show = () => ({ type: HEADER.SET_HEADER_SHOW });
+export const set_header_hide = () => ({ type: HEADER.SET_HEADER_HIDE });

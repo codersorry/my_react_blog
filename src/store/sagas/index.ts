@@ -1,7 +1,8 @@
-import { all } from 'redux-saga/effects'
+import { all } from 'redux-saga/effects';
 
-import { headerSaga } from './header'
+import { headerSaga } from './header';
+import { mainSaga } from './main';
 
 export function* defSaga() {
-  yield all([headerSaga()])
+  yield all([headerSaga(), mainSaga()]);
 }

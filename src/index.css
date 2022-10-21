@@ -21,3 +21,15 @@ body {
 .comm-main {
   margin-top: 4rem;
 }
+
+.flex-wrap {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.flex-column-wrap {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}

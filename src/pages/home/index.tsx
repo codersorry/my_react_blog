@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { BackTop, Row, Col, List } from 'antd';
-import { RocketOutlined, CalendarOutlined, FolderOutlined, FireOutlined } from '@ant-design/icons';
-import Author from '@/components/author';
+import { List } from 'antd';
+import { CalendarOutlined, FolderOutlined, FireOutlined } from '@ant-design/icons';
 import marked from 'marked';
 import hljs from 'highlight.js';
 import 'highlight.js/styles/monokai-sublime.css';
@@ -41,51 +40,38 @@ const Home: React.FC = () => {
   };
   return (
     <div>
-      <BackTop>
-        <div className='ant-back-top-inner'>
-          <RocketOutlined />
-        </div>
-      </BackTop>
-      <Row className='comm-main' justify='center'>
-        <Col className='comm-left' xs={23} sm={18} md={14} lg={14} xl={14}>
-          <List
-            header={<div>最新日志</div>}
-            itemLayout='vertical'
-            dataSource={list}
-            renderItem={(item) => (
-              <List.Item>
-                <div
-                  className='list-title'
-                  onClick={() => {
-                    titleClick(item.article_id);
-                  }}
-                >
-                  {item.article_title}
-                </div>
-                <div className='list-icon'>
-                  <span>
-                    <CalendarOutlined />
-                    {timeTrans(item.publish_time, 2)}
-                  </span>
-                  <span>
-                    <FolderOutlined />
-                    {item.type_name}
-                  </span>
-                  <span>
-                    <FireOutlined />
-                    {item.view_count}
-                  </span>
-                </div>
-                <div className='comm-right' dangerouslySetInnerHTML={{ __html: marked(item.article_introduce) }}></div>
-              </List.Item>
-            )}
-          />
-        </Col>
-        <Col className='commRight' xs={0} sm={0} md={4} lg={4} xl={4}>
-          <Author />
-          {/* <Advert />  */}
-        </Col>
-      </Row>
+      <List
+        header={<div>最新日志</div>}
+        itemLayout='vertical'
+        dataSource={list}
+        renderItem={(item) => (
+          <List.Item>
+            <div
+              className='list-title'
+              onClick={() => {
+                titleClick(item.article_id);
+              }}
+            >
+              {item.article_title}
+            </div>
+            <div className='list-icon'>
+              <span>
+                <CalendarOutlined />
+                {timeTrans(item.publish_time, 2)}
+              </span>
+              <span>
+                <FolderOutlined />
+                {item.type_name}
+              </span>
+              <span>
+                <FireOutlined />
+                {item.view_count}
+              </span>
+            </div>
+            <div className='comm-right' dangerouslySetInnerHTML={{ __html: marked(item.article_introduce) }}></div>
+          </List.Item>
+        )}
+      />
     </div>
   );
 };

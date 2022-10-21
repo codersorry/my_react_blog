@@ -36,8 +36,12 @@ marked.setOptions({
 
 const Detail: React.FC<PropsType> = (props) => {
   const [articleContent, setArticleContent] = useState<ArticleDetailType>();
+
   useEffect(() => {
-    window.scrollTo(0, 0);
+    setTimeout(() => {
+      window.scrollTo(0, 0);
+    }, 10);
+    // window.scrollTo(0, 0);
     getArticleById(props.articleId).then((res) => {
       setArticleContent(res.data[0]);
     });
@@ -60,45 +64,39 @@ const Detail: React.FC<PropsType> = (props) => {
 
   return (
     <DetailStyled isShowDetail={props.isShowDetail}>
-      <Row className='comm-main' justify='center'>
-        <Col className='comm-left' xs={23} sm={23} md={18} lg={16} xl={14}>
-          <div className='bread-div'>
-            <Breadcrumb>
-              <Breadcrumb.Item onClick={backToArticle}>
-                <span style={{ cursor: 'pointer' }}>返回</span>
-              </Breadcrumb.Item>
-              <Breadcrumb.Item>文章详情</Breadcrumb.Item>
-            </Breadcrumb>
-          </div>
-          <div>
-            <div className='detailed-title'>{articleContent?.article_title}</div>
-            <div className='list-icon'>
-              <span>
-                <CalendarOutlined />
-                {timeTrans(articleContent?.publish_time)}
-              </span>
-              <span>
-                <FolderOutlined />
-                {articleContent?.type_name}
-              </span>
-              <span>
-                <FireOutlined />
-                {articleContent?.view_count}
-              </span>
-            </div>
-            <div className='detailed-content' dangerouslySetInnerHTML={{ __html: html }}></div>
-          </div>
-        </Col>
-        <Col className='comm-right' xs={0} sm={0} md={7} lg={5} xl={4}>
-          <Author />
-          <Affix offsetTop={50}>
-            <div className='detailed-nav comm-box cssniceright' style={{ backgroundColor: 'rgba(255,255,255,0.6)' }}>
-              <div className='nav-title'>文章目录</div>
-              <div className='maintoc'>{tocify && tocify.render()}</div>
-            </div>
-          </Affix>
-        </Col>
-      </Row>
+      <div className='bread-div'>
+        <Breadcrumb>
+          <Breadcrumb.Item onClick={backToArticle}>
+            <span style={{ cursor: 'pointer' }}>返回</span>
+          </Breadcrumb.Item>
+          <Breadcrumb.Item>文章详情</Breadcrumb.Item>
+        </Breadcrumb>
+      </div>
+      <div>
+        <div className='detailed-title'>{articleContent?.article_title}</div>
+        <div className='list-icon'>
+          <span>
+            <CalendarOutlined />
+            {timeTrans(articleContent?.publish_time)}
+          </span>
+          <span>
+            <FolderOutlined />
+            {articleContent?.type_name}
+          </span>
+          <span>
+            <FireOutlined />
+            {articleContent?.view_count}
+          </span>
+        </div>
+        <div className='detailed-content' dangerouslySetInnerHTML={{ __html: html }}></div>
+      </div>
+      {/* <Author />
+      <Affix offsetTop={50}>
+        <div className='detailed-nav comm-box cssniceright' style={{ backgroundColor: 'rgba(255,255,255,0.6)' }}>
+          <div className='nav-title'>文章目录</div>
+          <div className='maintoc'>{tocify && tocify.render()}</div>
+        </div>
+      </Affix> */}
     </DetailStyled>
   );
 };

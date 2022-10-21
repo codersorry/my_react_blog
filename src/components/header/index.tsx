@@ -1,8 +1,8 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, { useState, useEffect } from 'react'
-import { Row, Col, Menu, Tooltip } from 'antd'
-import type { MenuProps } from 'antd'
-import './index.css'
+import React, { useState, useEffect } from 'react';
+import { Row, Col, Menu, Tooltip } from 'antd';
+import type { MenuProps } from 'antd';
+import { HeaderStyled } from './style';
 import {
   HomeOutlined,
   SmileOutlined,
@@ -11,15 +11,19 @@ import {
   MessageOutlined,
   RocketOutlined,
   UserOutlined,
-} from '@ant-design/icons'
-import { get_article_type } from '@/store/actions/header'
-import { useNavigate } from 'react-router-dom'
-import { useDispatch, useSelector } from 'react-redux'
-import { HeaderState } from '@/store/reducers/header'
-import { rootState } from '@/store'
-import { ArticleTypeType } from '@/services/components/header'
+} from '@ant-design/icons';
+import { get_article_type } from '@/store/actions/main';
+import { useNavigate } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { RootState } from '@/store';
+import { ArticleTypeType } from '@/services/components/header';
 
-type MenuItem = Required<MenuProps>['items'][number]
+type MenuItem = Required<MenuProps>['items'][number];
+
+type CurStateType = {
+  articleType: ArticleTypeType[];
+  isShowHeader: boolean;
+};
 
 function getItem(label: React.ReactNode, key: React.Key, icon?: React.ReactNode, children?: MenuItem[]): MenuItem {
   return {
@@ -27,28 +31,31 @@ function getItem(label: React.ReactNode, key: React.Key, icon?: React.ReactNode,
     icon,
     children,
     label,
-  } as MenuItem
+  } as MenuItem;
 }
 
 const Header: React.FC = () => {
-  const dispatch = useDispatch()
-  const [articleTypeList, setArticleTypeList] = useState([])
-  const header = useSelector<rootState, HeaderState>((state) => state.header)
+  const dispatch = useDispatch();
+  const [articleTypeList, setArticleTypeList] = useState([]);
+  const { articleType, isShowHeader } = useSelector<RootState, CurStateType>((state) => ({
+    articleType: state.main.articleType,
+    isShowHeader: state.header.isShowHeader,
+  }));
   useEffect(() => {
-    dispatch(get_article_type())
-  }, [])
+    dispatch(get_article_type());
+  }, []);
 
   useEffect(() => {
-    mapArr(header.articleType)
-  }, [header])
+    mapArr(articleType);
+  }, [articleType]);
 
   const mapArr = (data: ArticleTypeType[]) => {
-    const arr: any = []
+    const arr: any = [];
     data.forEach((item: ArticleTypeType) => {
-      arr.push(getItem(item.type_name, item.type_id))
-    })
-    setArticleTypeList(arr)
-  }
+      arr.push(getItem(item.type_name, item.type_id));
+    });
+    setArticleTypeList(arr);
+  };
 
   const items: MenuItem[] = [
     getItem('首页', 'home', <HomeOutlined />),
@@ -60,25 +67,25 @@ const Header: React.FC = () => {
     getItem('聊天室', '7', <MessageOutlined />),
     getItem('友链', '5', <SmileOutlined />),
     getItem('关于', '8', <UserOutlined />),
-  ]
+  ];
 
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   //点击菜单跳转路由
   const menuClick = (e: any) => {
     if (e.key === 'home') {
-      navigate('/')
+      navigate('/');
     } else if (e.keyPath[1] === 'article') {
-      navigate(`/article/${e.key}`)
+      navigate(`/article/${e.key}`);
     } else if (e.key === 'record') {
-      navigate('/record')
+      navigate('/record');
     } else if (e.key === 'say') {
-      navigate('/say')
+      navigate('/say');
     } else if (e.key === 'picture') {
-      navigate('/picture')
+      navigate('/picture');
     }
-  }
+  };
   return (
-    <div className='header'>
+    <HeaderStyled isShowHeader={isShowHeader}>
       <Row justify='center'>
         <Col xs={16} sm={16} md={0} lg={0} xl={0}>
           <span
@@ -112,8 +119,8 @@ const Header: React.FC = () => {
           />
         </Col>
       </Row>
-    </div>
-  )
-}
+    </HeaderStyled>
+  );
+};
 
-export default Header
+export default Header;

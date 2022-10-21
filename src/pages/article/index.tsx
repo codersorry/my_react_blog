@@ -1,20 +1,19 @@
 import React, { memo, useState, useEffect, useCallback } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import { BackTop, Row, Col, Breadcrumb, Pagination, Menu, Spin } from 'antd';
+import { Breadcrumb, Pagination, Menu, Spin } from 'antd';
 import type { PaginationProps, MenuProps } from 'antd';
-import { RocketOutlined, LoadingOutlined } from '@ant-design/icons';
-import Author from '@/components/author';
-import Tags from '@/components/tags';
+import { LoadingOutlined } from '@ant-design/icons';
 import 'highlight.js/styles/monokai-sublime.css';
 import { ArticleStyled } from './style';
 import { getArticleListByTypeId } from '@/services/pages/article';
 import { ArticleListDataType } from '@/services/pages/home';
 import ArticleItem from './cpns/articleItem';
-import { useSelector } from 'react-redux';
-import { rootState } from '@/store';
-import { HeaderState } from '@/store/reducers/header';
+import { useSelector, useDispatch } from 'react-redux';
+import { RootState } from '@/store';
+import { MainState } from '@/store/reducers/main';
 import Detail from '@/pages/detail';
 import InterSectionLazyLoad from '@/utils/tools/InterSectionLazyLoad';
+import { set_scroll_top } from '@/store/actions/main';
 
 interface CurDropMenuItemType {
   key: number;
@@ -23,7 +22,8 @@ interface CurDropMenuItemType {
 
 const Article: React.FC = memo(() => {
   const navigate = useNavigate();
-  const header = useSelector<rootState, HeaderState>((state) => state.header);
+  const dispatch = useDispatch();
+  const { articleType } = useSelector<RootState, MainState>((state) => state.main);
   const { id } = useParams();
   const [articleTypeList, setArticleTypeList] = useState<CurDropMenuItemType[]>([]);
   const [curArticleType, setCurArticleType] = useState<string>(); // 面包屑当前的文章类型
@@ -34,7 +34,7 @@ const Article: React.FC = memo(() => {
   const [isShowDetail, setIsShowDetail] = useState<boolean>(false); // 控制详情页的显示隐藏
   const [articleId, setArticleId] = useState(null); // 文章id
   const [scrollTop, setScrollTop] = useState<number>(0); // 保存文章页滚动的高度
-  const [isShowArray, setIsShowArray] = useState<boolean[]>([]);
+  const [isShowArray, setIsShowArray] = useState<boolean[]>([]); //保存懒加载是否显示数组
 
   //isShowArray变化循环设置默认值false
   const setIsShowArrayFalse = useCallback((listLength: number) => {
@@ -47,11 +47,14 @@ const Article: React.FC = memo(() => {
   }, []);
 
   useEffect(() => {
+    // 详情页返回后，同时修改redux中的scrollTop，解决返回后header显示隐藏问题
+    dispatch(set_scroll_top(scrollTop));
     !isShowDetail && window.scrollTo(0, scrollTop);
-  }, [isShowDetail, scrollTop]);
+  }, [dispatch, isShowDetail, scrollTop]);
 
   useEffect(() => {
     setTimeout(() => {
+      dispatch(set_scroll_top(0));
       window.scrollTo(0, 0);
     }, 10);
 
@@ -61,7 +64,7 @@ const Article: React.FC = memo(() => {
       setIsShowArray([...isShowArray]);
       console.log(isShowArray);
     });
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [list]);
 
   //监听url上id参数的变化，重新请求数据
@@ -79,11 +82,11 @@ const Article: React.FC = memo(() => {
   //面包屑下拉文章类型列表
   useEffect(() => {
     let curArr: CurDropMenuItemType[] = [];
-    header.articleType.forEach((i) => {
+    articleType.forEach((i) => {
       curArr.push({ key: i.type_id, label: i.type_name });
     });
     setArticleTypeList(curArr);
-  }, [header]);
+  }, [articleType]);
 
   useEffect(() => {
     // 更新面包屑当前页的文章类型
@@ -117,6 +120,8 @@ const Article: React.FC = memo(() => {
     getArticleListByTypeId(id, { page: 1, pageSize }).then((res) => {
       setList(res.data.articles);
       setTotal(res.data.total);
+      //重新请求后，自动返回顶部，手动设置redux中scrollTop的值为0
+      dispatch(set_scroll_top(0));
       window.scrollTo(0, 0);
     });
   };
@@ -134,6 +139,8 @@ const Article: React.FC = memo(() => {
       setList(res.data.articles);
       setTotal(res.data.total);
       setIsShowArrayFalse(res.data.articles.length);
+      //重新请求后，自动返回顶部，手动设置redux中scrollTop的值为0
+      dispatch(set_scroll_top(0));
       window.scrollTo(0, 0);
     });
   };
@@ -141,63 +148,50 @@ const Article: React.FC = memo(() => {
   return (
     <>
       <ArticleStyled isShowDetail={isShowDetail}>
-        <BackTop>
-          <div className='ant-back-top-inner'>
-            <RocketOutlined />
-          </div>
-        </BackTop>
-        <Row className='comm-main' justify='center'>
-          <Col className='comm-left' xs={23} sm={22} md={20} lg={14} xl={14}>
-            <div className='breadcrumb'>
-              <Breadcrumb>
-                <Breadcrumb.Item>文章</Breadcrumb.Item>
-                <Breadcrumb.Item overlay={menu} className='breadcrumbItem'>
-                  {curArticleType}
-                </Breadcrumb.Item>
-              </Breadcrumb>
-            </div>
-            {list.map((item, index) => {
-              return (
-                <ArticleItem
-                  isShow={isShowArray[index]}
-                  index={index}
-                  key={item.article_id}
-                  curItem={item}
-                  setIsShowDetail={setIsShowDetail}
-                  setArticleId={setArticleId}
-                  setScrollTop={setScrollTop}
-                />
-              );
-            })}
-            <div style={{ display: list.length === 0 ? 'block' : 'none' }}>
-              <div className='loadingDiv'>
-                <Spin
-                  spinning={list.length === 0 ? true : false}
-                  indicator={<LoadingOutlined style={{ fontSize: 24 }} />}
-                  tip='Loading...'
-                  size='large'
-                />
-              </div>
-            </div>
-
-            <Pagination
-              className='paginationStyle'
-              total={total}
-              current={page}
-              pageSize={pageSize}
-              showSizeChanger
-              onShowSizeChange={onShowSizeChange}
-              itemRender={itemRender}
-              onChange={onChange}
-              defaultCurrent={1}
-              pageSizeOptions={[10, 15, 20]}
+        <div className='breadcrumb'>
+          <Breadcrumb>
+            <Breadcrumb.Item>文章</Breadcrumb.Item>
+            <Breadcrumb.Item overlay={menu} className='breadcrumbItem'>
+              {curArticleType}
+            </Breadcrumb.Item>
+          </Breadcrumb>
+        </div>
+        {list.map((item, index) => {
+          return (
+            <ArticleItem
+              isShow={isShowArray[index]}
+              index={index}
+              key={item.article_id}
+              curItem={item}
+              setIsShowDetail={setIsShowDetail}
+              setArticleId={setArticleId}
+              setScrollTop={setScrollTop}
             />
-          </Col>
-          <Col className='commRight' xs={0} sm={0} md={0} lg={5} xl={4}>
-            <Author />
-            <Tags />
-          </Col>
-        </Row>
+          );
+        })}
+        <div style={{ display: list.length === 0 ? 'block' : 'none' }}>
+          <div className='loadingDiv'>
+            <Spin
+              spinning={list.length === 0 ? true : false}
+              indicator={<LoadingOutlined style={{ fontSize: 24 }} />}
+              tip='Loading...'
+              size='large'
+            />
+          </div>
+        </div>
+
+        <Pagination
+          className='paginationStyle'
+          total={total}
+          current={page}
+          pageSize={pageSize}
+          showSizeChanger
+          onShowSizeChange={onShowSizeChange}
+          itemRender={itemRender}
+          onChange={onChange}
+          defaultCurrent={1}
+          pageSizeOptions={[10, 15, 20]}
+        />
       </ArticleStyled>
       <Detail isShowDetail={isShowDetail} articleId={articleId} setIsShowDetail={setIsShowDetail} />
     </>

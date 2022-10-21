@@ -26,8 +26,12 @@ const ArticleItem: React.FC<ArticleItemProps> = memo((props) => {
   const { curItem, setIsShowDetail, setArticleId, setScrollTop, index, isShow } = props;
   //文章点击跳转详情
   const itemClick = (id: any) => {
+    //跳转前保存当前scrollTop
     debugger;
     setScrollTop(document.documentElement.scrollTop);
+    //点击文章详情后，设置scrollTop为0，文章详情页回到顶部
+    window.scrollTo(0, 0);
+
     if (id) {
       setIsShowDetail(true);
       setArticleId(id);

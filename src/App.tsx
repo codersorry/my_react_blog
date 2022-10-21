@@ -9,22 +9,24 @@ import Header from './components/header';
 import Footer from './components/footer';
 import Picture from './pages/picture';
 import BackTop from './components/backTop';
+import BlogMain from './pages/main';
 
 function App() {
   return (
-    <BrowserRouter>
-      <Header />
-      <Routes>
-        <Route path='/' element={<Home />} />
-        <Route path='/detail/:id' element={<Detail setIsShowDetail={() => {}} />} />
-        <Route path='/article/:id' element={<Article />} />
-        <Route path='/record' element={<Record />} />
-        <Route path='/say' element={<Say />} />
-        <Route path='/picture' element={<Picture />} />
-      </Routes>
-      <BackTop />
-      <Footer />
-    </BrowserRouter>
+    // <BrowserRouter>
+    //   <Header />
+    //   <Routes>
+    //     <Route path='/' element={<Home />} />
+    //     <Route path='/detail/:id' element={<Detail setIsShowDetail={() => {}} />} />
+    //     <Route path='/article/:id' element={<Article />} />
+    //     <Route path='/record' element={<Record />} />
+    //     <Route path='/say' element={<Say />} />
+    //     <Route path='/picture' element={<Picture />} />
+    //   </Routes>
+    //   <BackTop />
+    //   <Footer />
+    // </BrowserRouter>
+    <BlogMain />
   );
 }
 
