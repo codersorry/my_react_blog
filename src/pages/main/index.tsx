@@ -22,7 +22,7 @@ const BlogMain = () => {
                 <BlogRoutes />
               </div>
             </Col>
-            <Col className='commRight' xs={0} sm={0} md={0} lg={5} xl={4}>
+            <Col className='right-bar' xs={0} sm={0} md={0} lg={5} xl={4}>
               <Author />
               <Tags />
             </Col>

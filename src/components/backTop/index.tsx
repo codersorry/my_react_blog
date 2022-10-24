@@ -46,7 +46,9 @@ const MyBackTop: React.FC = memo(() => {
 
   const backTop = () => {
     setIsShow(false);
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    setTimeout(() => {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }, 150);
   };
   return (
     <BackTopStyled isShow={isShow}>

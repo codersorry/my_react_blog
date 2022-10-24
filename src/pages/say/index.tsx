@@ -177,144 +177,129 @@ const Say = () => {
   }, []);
   return (
     <div>
-      <Row className='comm-main' justify='center' style={{ paddingTop: '3.2rem' }}>
-        <Col
-          className='comm-left'
-          xs={24}
-          sm={24}
-          md={16}
-          lg={18}
-          xl={14}
-          style={{ backgroundColor: 'rgba(255,255,255,.4)' }}
-        >
-          <Spin tip='加载中...' spinning={false}>
-            <List
-              header={
-                <Row>
-                  <Col xs={12} sm={14} md={15} lg={17} xl={17}>
+      <Spin tip='加载中...' spinning={false}>
+        <List
+          header={
+            <Row>
+              <Col xs={12} sm={14} md={15} lg={17} xl={17}>
+                <div
+                  style={{
+                    fontWeight: 'bold',
+                    paddingLeft: 20,
+                    lineHeight: '32px',
+                  }}
+                >
+                  生活趣事 <span style={{ color: 'red' }}>{520}</span> 篇
+                </div>
+              </Col>
+              <Col xs={1} sm={1} md={1} lg={1} xl={1}></Col>
+            </Row>
+          }
+          itemLayout='vertical' //
+          dataSource={renderItem}
+          renderItem={(item, index) => {
+            // const html = marked(item.introducemd);
+            return (
+              <List.Item key={index}>
+                <div className={index % 2 === 0 ? 'cssnice1' : 'cssnice4'}>
+                  <div className='borderbac'>
                     <div
-                      style={{
-                        fontWeight: 'bold',
-                        paddingLeft: 20,
-                        lineHeight: '32px',
-                      }}
+                      className='bacimg'
+                      style={
+                        window.screen.width >= 770
+                          ? {
+                              height: '18rem',
+                              backgroundImage:
+                                "url('http://www.jsfan.net/lifeimg/life%20(" +
+                                //@ts-ignore
+                                parseInt(Math.random() * 74) +
+                                ").jpg')",
+                            }
+                          : {
+                              height: '10rem',
+                              backgroundImage:
+                                "url('http://www.jsfan.net/lifeimg/life%20(" +
+                                //@ts-ignore
+                                parseInt(Math.random() * 74) +
+                                ").jpg')",
+                            }
+                      }
                     >
-                      生活趣事 <span style={{ color: 'red' }}>{520}</span> 篇
-                    </div>
-                  </Col>
-                  <Col xs={1} sm={1} md={1} lg={1} xl={1}></Col>
-                </Row>
-              }
-              itemLayout='vertical' //
-              dataSource={renderItem}
-              renderItem={(item, index) => {
-                // const html = marked(item.introducemd);
-                return (
-                  <List.Item key={index}>
-                    <div className={index % 2 === 0 ? 'cssnice1' : 'cssnice4'}>
-                      <div className='borderbac'>
-                        <div
-                          className='bacimg'
-                          style={
-                            window.screen.width >= 770
-                              ? {
-                                  height: '18rem',
-                                  backgroundImage:
-                                    "url('http://www.jsfan.net/lifeimg/life%20(" +
-                                    //@ts-ignore
-                                    parseInt(Math.random() * 74) +
-                                    ").jpg')",
-                                }
-                              : {
-                                  height: '10rem',
-                                  backgroundImage:
-                                    "url('http://www.jsfan.net/lifeimg/life%20(" +
-                                    //@ts-ignore
-                                    parseInt(Math.random() * 74) +
-                                    ").jpg')",
-                                }
-                          }
-                        >
-                          <div className='bacophover'>
-                            <div className='bacimg-title'>
-                              <Paragraph ellipsis style={{ color: '#fff' }}>
-                                <p className='label' style={{ color: '#fff' }}>
-                                  {item.sourceType === undefined ? '生活分享' : item.sourceType}
-                                </p>
-                                <span style={{ textShadow: '0 0 8px #fff' }}>{item.articleTitle}</span>
-                              </Paragraph>
-                            </div>
-                            <div
-                              className='bacimg-content'
-                              //@ts-ignore
-                              style={window.screen.width >= 770 ? { marginTop: '5rem' } : null}
-                              dangerouslySetInnerHTML={{
-                                __html: 'tttttttttttttttttttttttttttt',
-                              }}
-                              // dangerouslySetInnerHTML={{ __html: html }}
-                            ></div>
-                          </div>
+                      <div className='bacophover'>
+                        <div className='bacimg-title'>
+                          <Paragraph ellipsis style={{ color: '#fff' }}>
+                            <p className='label' style={{ color: '#fff' }}>
+                              {item.sourceType === undefined ? '生活分享' : item.sourceType}
+                            </p>
+                            <span style={{ textShadow: '0 0 8px #fff' }}>{item.articleTitle}</span>
+                          </Paragraph>
                         </div>
-                      </div>
-
-                      <div className='botinfo'>
-                        <span style={{ paddingRight: '1rem' }}>
-                          <CalendarOutlined />
-                          {item.showDate}
-                        </span>
-                        <span style={{ paddingRight: '1rem' }}>
-                          <TwitterOutlined />
-                          {item.sourceType === undefined ? '生活分享' : item.sourceType}
-                        </span>
-                        {item.sourceType === '秃头日记' ? null : (
-                          <span style={{ paddingRight: '1rem' }}>
-                            <FireOutlined style={{ color: 'red' }} />
-                            {item.fire
-                              ? // <CountUp
-                                //   start={0}
-                                //   end={item.fire}
-                                //   duration={2}
-                                //   style={{ padding: "0px" }}
-                                // />
-                                '暂无浏览'
-                              : '暂无浏览'}
-                          </span>
-                        )}
-                        {window.screen.width >= 770 ? (
-                          <span style={{ paddingRight: '1rem' }}>
-                            <UserOutlined style={{ color: 'lightseagreen' }} />
-                            Youngster_yj
-                          </span>
-                        ) : null}
-                        {item.isenter || item.isenter === undefined ? null : (
-                          <span style={{ paddingRight: '1rem' }}>
-                            <EyeInvisibleOutlined style={{ color: 'lightseagreen' }} />
-                            文章加密
-                          </span>
-                        )}
-                        {item.sourceType !== '秃头日记' ? (
-                          <p
-                            style={{ float: 'right' }}
-                            onClick={() => {
-                              routerData(item.articleTitle);
-                            }}
-                          >
-                            <ArrowsAltOutlined style={{ marginRight: 10 }} />
-                            <span>查看全文 》</span>
-                          </p>
-                        ) : null}
+                        <div
+                          className='bacimg-content'
+                          //@ts-ignore
+                          style={window.screen.width >= 770 ? { marginTop: '5rem' } : null}
+                          dangerouslySetInnerHTML={{
+                            __html: 'tttttttttttttttttttttttttttt',
+                          }}
+                          // dangerouslySetInnerHTML={{ __html: html }}
+                        ></div>
                       </div>
                     </div>
-                  </List.Item>
-                );
-              }}
-            />
-          </Spin>
-        </Col>
-        <Col className='comm-right' xs={0} sm={0} md={7} lg={5} xl={4}>
-          <Author />
-        </Col>
-      </Row>
+                  </div>
+
+                  <div className='botinfo'>
+                    <span style={{ paddingRight: '1rem' }}>
+                      <CalendarOutlined />
+                      {item.showDate}
+                    </span>
+                    <span style={{ paddingRight: '1rem' }}>
+                      <TwitterOutlined />
+                      {item.sourceType === undefined ? '生活分享' : item.sourceType}
+                    </span>
+                    {item.sourceType === '秃头日记' ? null : (
+                      <span style={{ paddingRight: '1rem' }}>
+                        <FireOutlined style={{ color: 'red' }} />
+                        {item.fire
+                          ? // <CountUp
+                            //   start={0}
+                            //   end={item.fire}
+                            //   duration={2}
+                            //   style={{ padding: "0px" }}
+                            // />
+                            '暂无浏览'
+                          : '暂无浏览'}
+                      </span>
+                    )}
+                    {window.screen.width >= 770 ? (
+                      <span style={{ paddingRight: '1rem' }}>
+                        <UserOutlined style={{ color: 'lightseagreen' }} />
+                        Youngster_yj
+                      </span>
+                    ) : null}
+                    {item.isenter || item.isenter === undefined ? null : (
+                      <span style={{ paddingRight: '1rem' }}>
+                        <EyeInvisibleOutlined style={{ color: 'lightseagreen' }} />
+                        文章加密
+                      </span>
+                    )}
+                    {item.sourceType !== '秃头日记' ? (
+                      <p
+                        style={{ float: 'right' }}
+                        onClick={() => {
+                          routerData(item.articleTitle);
+                        }}
+                      >
+                        <ArrowsAltOutlined style={{ marginRight: 10 }} />
+                        <span>查看全文 》</span>
+                      </p>
+                    ) : null}
+                  </div>
+                </div>
+              </List.Item>
+            );
+          }}
+        />
+      </Spin>
     </div>
   );
 };

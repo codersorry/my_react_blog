@@ -180,43 +180,31 @@ const Picture = () => {
 
   return (
     <div>
-      <Row className='comm-main' justify='center' style={{ paddingTop: '2.7rem' }}>
-        <Col
-          className='comm-left'
-          xs={24}
-          sm={24}
-          md={23}
-          lg={23}
-          xl={18}
-          style={{ padding: 0, backgroundColor: 'rgba(255,255,255,.4)' }}
-        >
-          <Spin tip='加载中...' spinning={isLoading}>
-            <div id='main'>
-              {pictureList.map((item: any, key: any) => {
-                return (
-                  <div className='box' key={key}>
-                    <div className='pic'>
-                      <div className='suofanga' style={{ overflow: 'hidden' }}>
-                        <img
-                          alt='loading ...'
-                          className='divimg'
-                          src={'https://www.jsfan.net/some/lifeimg/life%20(' + item + ').jpg'}
-                          onLoad={() => load()}
-                          // onClick={() =>
-                          //   Zmage.browsing({
-                          //     src: 'https://www.jsfan.net/some/lifeimg/life%20(' + item + ').jpg',
-                          //   })
-                          // }
-                        />
-                      </div>
-                    </div>
+      <Spin tip='加载中...' spinning={isLoading}>
+        <div id='main'>
+          {pictureList.map((item: any, key: any) => {
+            return (
+              <div className='box' key={key}>
+                <div className='pic'>
+                  <div className='suofanga' style={{ overflow: 'hidden' }}>
+                    <img
+                      alt='loading ...'
+                      className='divimg'
+                      src={'https://www.jsfan.net/some/lifeimg/life%20(' + item + ').jpg'}
+                      onLoad={() => load()}
+                      // onClick={() =>
+                      //   Zmage.browsing({
+                      //     src: 'https://www.jsfan.net/some/lifeimg/life%20(' + item + ').jpg',
+                      //   })
+                      // }
+                    />
                   </div>
-                );
-              })}
-            </div>
-          </Spin>
-        </Col>
-      </Row>
+                </div>
+              </div>
+            );
+          })}
+        </div>
+      </Spin>
     </div>
   );
 };
