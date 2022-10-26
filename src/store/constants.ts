@@ -11,4 +11,7 @@ export enum MAIN {
 
   //设置滚动的距离
   SET_SCROLL_TOP = 'SET_SCROLL_TOP',
+
+  //设置右侧显示组件
+  SET_RIGHT_BAR = 'SET_RIGHT_BAR',
 }

@@ -1,12 +1,12 @@
 import React from 'react';
 import { useRoutes } from 'react-router-dom';
 
-import Home from '@/pages/home';
-import Detail from '@/pages/detail';
-import Article from '@/pages/article';
-import Record from '@/pages/record';
-import Say from '@/pages/say';
-import Picture from '@/pages/picture';
+const Home = React.lazy(() => import('@/pages/home'));
+const Article = React.lazy(() => import('@/pages/article'));
+const Detail = React.lazy(() => import('@/pages/detail'));
+const Record = React.lazy(() => import('@/pages/record'));
+const Say = React.lazy(() => import('@/pages/say'));
+const Picture = React.lazy(() => import('@/pages/picture'));
 
 const BlogRoutes = () => {
   const routes = useRoutes([

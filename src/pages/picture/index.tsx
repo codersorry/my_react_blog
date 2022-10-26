@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Row, Col, Spin } from 'antd';
+import { Spin } from 'antd';
 import './index.css';
 
 let isload = 0;

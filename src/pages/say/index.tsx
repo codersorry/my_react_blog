@@ -8,7 +8,6 @@ import {
   EyeInvisibleOutlined,
   ArrowsAltOutlined,
 } from '@ant-design/icons';
-import Author from '@/components/author';
 import './index.css';
 const { Paragraph } = Typography;
 
