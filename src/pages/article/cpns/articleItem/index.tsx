@@ -5,6 +5,8 @@ import { CalendarOutlined, FolderOutlined, FireOutlined, PushpinOutlined } from 
 import { Tag } from 'antd';
 import timeTrans from '@/utils/tools/timeTrans';
 import { errorImg } from '@/images/images';
+import { useDispatch } from 'react-redux';
+import { set_tags_hide } from '@/store/actions/main';
 
 interface ArticleItemProps {
   curItem?: ArticleListDataType;
@@ -23,12 +25,14 @@ const tagDemo = [
 ];
 
 const ArticleItem: React.FC<ArticleItemProps> = memo((props) => {
+  const dispatch = useDispatch();
   const { curItem, setIsShowDetail, setArticleId, setScrollTop, index, isShow } = props;
   //文章点击跳转详情
   const itemClick = (id: any) => {
     //跳转前保存当前scrollTop
-    debugger;
     setScrollTop(document.documentElement.scrollTop);
+    //隐藏tags组件
+    dispatch(set_tags_hide());
     //点击文章详情后，设置scrollTop为0，文章详情页回到顶部
     window.scrollTo(0, 0);
 

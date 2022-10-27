@@ -32,7 +32,6 @@ interface CurPayLoadType {
 }
 
 const main = (state = initMainState, action: { type: MAIN; payload: CurPayLoadType }) => {
-  debugger;
   switch (action.type) {
     case MAIN.GET_ARTICLE_TYPE:
       return Object.assign({}, state);
@@ -43,6 +42,10 @@ const main = (state = initMainState, action: { type: MAIN; payload: CurPayLoadTy
       return { ...state, scrollTop: action.payload.scrollTop };
     case MAIN.SET_RIGHT_BAR:
       return { ...state, showRightBar: { ...action.payload.showRightBar } };
+    case MAIN.SET_TGAS_SHOW:
+      return { ...state, showRightBar: { ...state.showRightBar, showTags: true } };
+    case MAIN.SET_TGAS_HIDE:
+      return { ...state, showRightBar: { ...state.showRightBar, showTags: false } };
     default:
       return state;
   }

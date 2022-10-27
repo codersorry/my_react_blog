@@ -1,4 +1,4 @@
-import React, { Suspense, useEffect, useState } from 'react';
+import React, { Suspense, useEffect, useState, memo } from 'react';
 import { useLocation } from 'react-router-dom';
 import { BlogMainStyled } from './style';
 import { Row, Col } from 'antd';
@@ -12,7 +12,7 @@ import { RootState } from '@/store';
 import { RightBarShowType } from '@/store/reducers/main';
 import { set_right_bar } from '@/store/actions/main';
 
-const BlogMain = () => {
+const BlogMain = memo(() => {
   const dispatch = useDispatch();
   const { pathname } = useLocation();
   const showRightBar = useSelector<RootState, RightBarShowType>((state) => state.main.showRightBar);
@@ -78,6 +78,6 @@ const BlogMain = () => {
       <Footer />
     </>
   );
-};
+});
 
 export default BlogMain;

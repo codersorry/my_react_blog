@@ -1,16 +1,15 @@
 import React, { useState, useEffect } from 'react';
-import { Row, Col, Breadcrumb, Affix } from 'antd';
+import { Breadcrumb } from 'antd';
 import { CalendarOutlined, FolderOutlined, FireOutlined } from '@ant-design/icons';
 import marked from 'marked';
 import hljs from 'highlight.js';
 import { DetailStyled } from './style';
-
 import Tocify from './cpns/blogBar';
-import Author from '@/components/author';
 import { getArticleById } from '@/services/pages/detail';
-
 import { ArticleDetailType } from '@/services/pages/detail';
 import timeTrans from '@/utils/tools/timeTrans';
+import { set_tags_show } from '@/store/actions/main';
+import { useDispatch } from 'react-redux';
 
 type PropsType = {
   articleContent?: ArticleDetailType;
@@ -35,6 +34,7 @@ marked.setOptions({
 });
 
 const Detail: React.FC<PropsType> = (props) => {
+  const dispatch = useDispatch();
   const [articleContent, setArticleContent] = useState<ArticleDetailType>();
 
   useEffect(() => {
@@ -51,6 +51,8 @@ const Detail: React.FC<PropsType> = (props) => {
   const backToArticle = () => {
     // navigate('/');
     props.setIsShowDetail(false);
+    // 显示tags组件
+    dispatch(set_tags_show());
   };
 
   //blogBar 博客内容导航

@@ -14,4 +14,8 @@ export enum MAIN {
 
   //设置右侧显示组件
   SET_RIGHT_BAR = 'SET_RIGHT_BAR',
+
+  // 显示或隐藏tags组件
+  SET_TGAS_SHOW = 'SET_TGAS_SHOW',
+  SET_TGAS_HIDE = 'SET_TGAS_HIDE',
 }
