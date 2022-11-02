@@ -1,17 +1,14 @@
-import React, { useEffect } from 'react';
-import { SayStyled } from './style';
+import React from 'react';
+import { DetailCommentStyled } from './style';
 import { Input, Button } from 'antd';
 import Comment from '@/components/comment';
 const { TextArea } = Input;
 
-const Say = () => {
-  useEffect(() => {
-    window.scrollTo(0, 0);
-  }, []);
+const DetailComment = () => {
   return (
-    <SayStyled>
-      <div className='say_top_tip'>
-        互动起来，随便说点什么吧❤ ~<span style={{ color: '#ec5328' }}>(支持markdown语法)</span>
+    <DetailCommentStyled>
+      <div className='top_tip'>
+        互动起来，发表你的看法吧❤ ~<span style={{ color: '#ec5328' }}>(支持markdown语法)</span>
       </div>
 
       <div className='comment_input_wrap'>
@@ -26,13 +23,13 @@ const Say = () => {
             onChange={(e) => ({})}
           />
           <Button onClick={() => {}} style={{ marginTop: '15px' }} type='primary'>
-            发表说说
+            发表评论
           </Button>
         </div>
         <Comment />
       </div>
-    </SayStyled>
+    </DetailCommentStyled>
   );
 };
 
-export default Say;
+export default DetailComment;

@@ -176,4 +176,30 @@ export const DetailStyled = styled.div<DetailStyledProps>`
     color: #888;
     margin-bottom: 1rem;
   }
+
+  .article_tags {
+    background-color: #f6f8fa;
+    width: 100%;
+    padding: 10px;
+    .article_tags_container {
+      display: flex;
+      alignitems: center;
+    }
+    .tag_item {
+      margin-left: 6px;
+      padding: 4px 10px;
+      height: 60px;
+      border-radius: 7px;
+      color: white;
+      cursor: pointer;
+      height: 23px;
+      display: flex;
+      align-items: center;
+    }
+    .modifyTime {
+      text-align: right;
+      color: #ccc;
+      font-size: 15px;
+    }
+  }
 `;

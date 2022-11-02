@@ -62,7 +62,7 @@ const ArticleItem: React.FC<ArticleItemProps> = memo((props) => {
           {timeTrans(curItem?.publish_time)}
         </div>
         <div>
-          <FolderOutlined />
+          <FolderOutlined style={{ color: '#ecc859' }} />
           &nbsp;
           {curItem?.type_name}
         </div>

@@ -1,9 +1,18 @@
 import React, { useState, useEffect } from 'react';
-import { Breadcrumb } from 'antd';
-import { CalendarOutlined, FolderOutlined, FireOutlined } from '@ant-design/icons';
+import { Breadcrumb, Divider, Popover } from 'antd';
+import {
+  CalendarOutlined,
+  FolderOutlined,
+  FireOutlined,
+  TagsOutlined,
+  RedEnvelopeOutlined,
+  QqOutlined,
+  WechatOutlined,
+} from '@ant-design/icons';
 import marked from 'marked';
 import hljs from 'highlight.js';
 import { DetailStyled } from './style';
+import DetailComment from './cpns/detailComment';
 import Tocify from './cpns/blogBar';
 import { getArticleById } from '@/services/pages/detail';
 import { ArticleDetailType } from '@/services/pages/detail';
@@ -17,6 +26,13 @@ type PropsType = {
   articleId?: any;
   setIsShowDetail: React.Dispatch<React.SetStateAction<boolean>>;
 };
+
+const tagDemo = [
+  { tag_id: 0, tag_name: 'React', tag_color: '#FF5777' },
+  { tag_id: 1, tag_name: 'JavaScript', tag_color: '#972cef' },
+  { tag_id: 2, tag_name: 'TypeScript', tag_color: '#5488EA' },
+  { tag_id: 3, tag_name: 'CSS', tag_color: '#FFC101' },
+];
 
 const renderer = new marked.Renderer();
 marked.setOptions({
@@ -35,6 +51,7 @@ marked.setOptions({
 
 const Detail: React.FC<PropsType> = (props) => {
   const dispatch = useDispatch();
+  const { articleId } = props;
   const [articleContent, setArticleContent] = useState<ArticleDetailType>();
 
   useEffect(() => {
@@ -42,10 +59,11 @@ const Detail: React.FC<PropsType> = (props) => {
       window.scrollTo(0, 0);
     }, 10);
     // window.scrollTo(0, 0);
-    getArticleById(props.articleId).then((res) => {
-      setArticleContent(res.data[0]);
-    });
-  }, [props.articleId]);
+    articleId &&
+      getArticleById(articleId).then((res) => {
+        setArticleContent(res.data[0]);
+      });
+  }, [articleId]);
 
   //返回主页
   const backToArticle = () => {
@@ -92,6 +110,45 @@ const Detail: React.FC<PropsType> = (props) => {
         </div>
         <div className='detailed-content' dangerouslySetInnerHTML={{ __html: html }}></div>
       </div>
+      <Divider />
+      <div className='article_tags'>
+        <div className='article_tags_container'>
+          <TagsOutlined style={{ fontSize: '23px', color: '#1890FF' }} />
+          {tagDemo.map((item) => {
+            return (
+              <span
+                onClick={() => {}}
+                key={item.tag_id}
+                className='tag_item'
+                style={{ backgroundColor: item.tag_color }}
+              >
+                {item.tag_name}
+              </span>
+            );
+          })}
+        </div>
+        <div className='modifyTime'>最后修改于:{timeTrans(articleContent?.publish_time)}</div>
+      </div>
+      <Divider orientation='center' style={{ fontSize: '30px' }}>
+        <Popover
+          content={
+            <div>
+              <img alt='' src={''} />
+              <img alt='' src={''} />
+            </div>
+          }
+          title='打赏...谢谢老板！'
+        >
+          <RedEnvelopeOutlined style={{ color: '#ff5777', padding: '0 10px' }} />
+        </Popover>
+        <Popover content={<img alt='' src={''} />} title='我的QQ'>
+          <QqOutlined style={{ color: '#1B92FF', padding: '0 10px' }} />
+        </Popover>
+        <Popover content={<img alt='' src={''} />} title='我的微信'>
+          <WechatOutlined style={{ color: '#1CD66C', padding: '0 10px' }} />
+        </Popover>
+      </Divider>
+      <DetailComment />
       {/* <Author />
       <Affix offsetTop={50}>
         <div className='detailed-nav comm-box cssniceright' style={{ backgroundColor: 'rgba(255,255,255,0.6)' }}>
