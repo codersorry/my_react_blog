@@ -5,6 +5,7 @@ import { Row, Col } from 'antd';
 import Header from '@/components/header';
 import Footer from '@/components/footer';
 import MyBackTop from '@/components/backTop';
+import LoginPanel from '@/components/loginPanel';
 import BlogRoutes from '@/router';
 import RightBar from '@/pages/main/cpns/rightBar';
 import { useDispatch, useSelector } from 'react-redux';
@@ -76,6 +77,7 @@ const BlogMain = memo(() => {
         </BlogMainStyled>
       </Suspense>
       <Footer />
+      <LoginPanel />
     </>
   );
 });

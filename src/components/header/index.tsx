@@ -63,7 +63,7 @@ const Header: React.FC = () => {
     getItem('记录', 'record', <RocketOutlined />),
     getItem('说说', 'say', <ShareAltOutlined />),
     getItem('图片', 'picture', <SmileOutlined />),
-    getItem('留言', '6', <MessageOutlined />),
+    // getItem('留言', '6', <MessageOutlined />),
     getItem('聊天室', '7', <MessageOutlined />),
     getItem('友链', '5', <SmileOutlined />),
     getItem('关于', '8', <UserOutlined />),
