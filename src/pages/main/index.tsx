@@ -10,13 +10,13 @@ import BlogRoutes from '@/router';
 import RightBar from '@/pages/main/cpns/rightBar';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '@/store';
-import { RightBarShowType } from '@/store/reducers/main';
+import { MainState } from '@/store/reducers/main';
 import { set_right_bar } from '@/store/actions/main';
 
 const BlogMain = memo(() => {
   const dispatch = useDispatch();
   const { pathname } = useLocation();
-  const showRightBar = useSelector<RootState, RightBarShowType>((state) => state.main.showRightBar);
+  const { showRightBar, showLoginPanel } = useSelector<RootState, MainState>((state) => state.main);
   const [isShowRightBar, setIsShowRightBar] = useState<boolean>(false); // 是否显示整个右侧
 
   useEffect(() => {
@@ -76,8 +76,8 @@ const BlogMain = memo(() => {
           </div> */}
         </BlogMainStyled>
       </Suspense>
+      {showLoginPanel ? <LoginPanel /> : ''}
       <Footer />
-      <LoginPanel />
     </>
   );
 });

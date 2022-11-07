@@ -5,6 +5,8 @@ type BlogMainStyledPropsType = {
 };
 
 export const BlogMainStyled = styled.div<BlogMainStyledPropsType>`
+  overflow-x: hidden;
+
   .comm-left {
     background-color: #fff;
     padding: 0.3rem;

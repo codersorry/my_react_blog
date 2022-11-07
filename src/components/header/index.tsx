@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useState, useEffect } from 'react';
-import { Row, Col, Menu, Tooltip } from 'antd';
+import { Row, Col, Menu, Tooltip, Dropdown, Space, Avatar } from 'antd';
 import type { MenuProps } from 'antd';
 import { HeaderStyled } from './style';
 import {
@@ -11,8 +11,12 @@ import {
   MessageOutlined,
   RocketOutlined,
   UserOutlined,
+  MailOutlined,
+  LoginOutlined,
+  LogoutOutlined,
+  DownOutlined,
 } from '@ant-design/icons';
-import { get_article_type } from '@/store/actions/main';
+import { get_article_type, set_login_panel_show } from '@/store/actions/main';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '@/store';
@@ -67,6 +71,7 @@ const Header: React.FC = () => {
     getItem('聊天室', '7', <MessageOutlined />),
     getItem('友链', '5', <SmileOutlined />),
     getItem('关于', '8', <UserOutlined />),
+    getItem('登录', 'login', <MailOutlined />),
   ];
 
   const navigate = useNavigate();
@@ -82,8 +87,28 @@ const Header: React.FC = () => {
       navigate('/say');
     } else if (e.key === 'picture') {
       navigate('/picture');
+    } else if (e.key === 'login') {
+      debugger;
+      dispatch(set_login_panel_show());
     }
   };
+
+  const menu = (
+    <Menu
+      items={[
+        {
+          key: 'login',
+          label: '登录',
+          icon: <LoginOutlined />,
+        },
+        {
+          key: 'logout',
+          label: '登出',
+          icon: <LogoutOutlined />,
+        },
+      ]}
+    />
+  );
   return (
     <HeaderStyled isShowHeader={isShowHeader}>
       <Row justify='center'>
@@ -118,6 +143,16 @@ const Header: React.FC = () => {
             style={{ backgroundColor: 'rgba(40,54,70,0)', color: 'pink' }}
           />
         </Col>
+
+        <span className='avatarSpan'>
+          <Dropdown overlay={menu}>
+            <Space>
+              请登录
+              <DownOutlined />
+              <Avatar size={30} icon={<UserOutlined />} />
+            </Space>
+          </Dropdown>
+        </span>
       </Row>
     </HeaderStyled>
   );

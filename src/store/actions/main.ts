@@ -10,5 +10,16 @@ const set_right_bar = (showRightBar: RightBarShowType) => ({ type: MAIN.SET_RIGH
 // 显示或隐藏tags组件
 const set_tags_show = () => ({ type: MAIN.SET_TGAS_SHOW });
 const set_tags_hide = () => ({ type: MAIN.SET_TGAS_HIDE });
+// 显示或隐藏登录面板
+const set_login_panel_show = () => ({ type: MAIN.SET_LOGIN_PANEL_SHOW });
+const set_login_panel_hide = () => ({ type: MAIN.SET_LOGIN_PANEL_HIDE });
 
-export { get_article_type, set_scroll_top, set_right_bar, set_tags_show, set_tags_hide };
+export {
+  get_article_type,
+  set_scroll_top,
+  set_right_bar,
+  set_tags_show,
+  set_tags_hide,
+  set_login_panel_show,
+  set_login_panel_hide,
+};

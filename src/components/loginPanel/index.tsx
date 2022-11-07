@@ -1,6 +1,9 @@
 import React from 'react';
 import { LoginPanelStyled } from './style';
 import { Input, Button, Form, Tooltip, Typography, Space } from 'antd';
+import { CloseOutlined } from '@ant-design/icons';
+import { set_login_panel_hide } from '@/store/actions/main';
+import { useDispatch } from 'react-redux';
 
 const layout = {
   labelCol: { span: 5 },
@@ -11,6 +14,8 @@ const tailLayout = {
 };
 
 const LoginPanel: React.FC = () => {
+  const dispatch = useDispatch();
+
   const [form] = Form.useForm();
 
   const onFinish = (values: any) => {
@@ -20,8 +25,16 @@ const LoginPanel: React.FC = () => {
   const onReset = () => {
     form.resetFields();
   };
+
+  const closeLoginPanel = () => {
+    dispatch(set_login_panel_hide());
+  };
+
   return (
     <LoginPanelStyled>
+      <div className='close' onClick={closeLoginPanel}>
+        <CloseOutlined />
+      </div>
       <div className='loginTitle'>邮箱登录</div>
       <div className='formDiv'>
         <Form {...layout} form={form} name='control-hooks' onFinish={onFinish}>

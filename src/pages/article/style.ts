@@ -6,16 +6,6 @@ interface ArticleStyledPropsType {
 
 export const ArticleStyled = styled.div<ArticleStyledPropsType>`
   display: ${(props) => (props.isShowDetail ? 'none' : 'block')};
-  .ant-back-top-inner {
-    height: 40px;
-    width: 40px;
-    line-height: 40px;
-    border-radius: 20px;
-    background-color: rgba(0, 0, 0, 0.4);
-    color: #fff;
-    text-align: center;
-    font-size: 20px;
-  }
 
   .list-title {
     font-size: 1.3rem;

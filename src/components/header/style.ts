@@ -89,4 +89,11 @@ export const HeaderStyled = styled.div<HeaderStyledPropsType>`
     text-align: center;
     color: #fff;
   }
+
+  .avatarSpan {
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    color: white;
+  }
 `;

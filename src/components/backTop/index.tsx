@@ -13,6 +13,7 @@ interface CurStateType {
 }
 
 const MyBackTop: React.FC = memo(() => {
+  debugger;
   const dispatch = useDispatch();
   const { scrollTop, isShowHeader } = useSelector<RootState, CurStateType>((state) => ({
     scrollTop: state.main.scrollTop,
@@ -21,6 +22,7 @@ const MyBackTop: React.FC = memo(() => {
   const [isShow, setIsShow] = useState<boolean>(false);
 
   useEffect(() => {
+    debugger;
     window.addEventListener('scroll', handleScroll);
     function handleScroll() {
       const curScrollTop = document.documentElement.scrollTop || document.body.scrollTop;

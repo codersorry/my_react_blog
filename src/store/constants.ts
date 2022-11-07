@@ -18,4 +18,8 @@ export enum MAIN {
   // 显示或隐藏tags组件
   SET_TGAS_SHOW = 'SET_TGAS_SHOW',
   SET_TGAS_HIDE = 'SET_TGAS_HIDE',
+
+  // 显示或隐藏登录面板
+  SET_LOGIN_PANEL_SHOW = 'set_login_panel_show',
+  SET_LOGIN_PANEL_HIDE = 'set_login_panel_hide',
 }

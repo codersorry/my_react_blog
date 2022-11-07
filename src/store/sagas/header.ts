@@ -1,6 +1,6 @@
-import { HEADER } from '../constants';
-import { takeEvery, call, put } from 'redux-saga/effects';
-import { getArticleTypeList } from '@/services/components/header';
+// import { HEADER } from '../constants';
+// import { takeEvery, call, put } from 'redux-saga/effects';
+// import { getArticleTypeList } from '@/services/components/header';
 
 export function* headerSaga() {
   // yield takeEvery(HEADER.GET_ARTICLE_TYPE, function* (): any {

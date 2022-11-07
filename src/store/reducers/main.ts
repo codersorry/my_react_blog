@@ -14,6 +14,8 @@ export interface MainState {
   scrollTop: number;
   //右侧显示组件控制
   showRightBar: RightBarShowType;
+  //显示隐藏登录面板
+  showLoginPanel: boolean;
 }
 
 const initMainState: MainState = {
@@ -23,6 +25,7 @@ const initMainState: MainState = {
     showAuthor: false,
     showTags: false,
   },
+  showLoginPanel: false,
 };
 
 interface CurPayLoadType {
@@ -46,6 +49,10 @@ const main = (state = initMainState, action: { type: MAIN; payload: CurPayLoadTy
       return { ...state, showRightBar: { ...state.showRightBar, showTags: true } };
     case MAIN.SET_TGAS_HIDE:
       return { ...state, showRightBar: { ...state.showRightBar, showTags: false } };
+    case MAIN.SET_LOGIN_PANEL_SHOW:
+      return { ...state, showLoginPanel: true };
+    case MAIN.SET_LOGIN_PANEL_HIDE:
+      return { ...state, showLoginPanel: false };
     default:
       return state;
   }
