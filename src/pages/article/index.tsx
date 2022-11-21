@@ -97,6 +97,7 @@ const Article: React.FC = memo(() => {
   const dropMenuClick: MenuProps['onClick'] = ({ key }) => {
     navigate(`/article/${key}`);
   };
+
   const menu = <Menu items={articleTypeList} onClick={dropMenuClick} />;
 
   // 根据id匹配当前页文章类型名称

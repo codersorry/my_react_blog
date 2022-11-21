@@ -1,6 +1,8 @@
 import { MAIN } from '../constants';
-import { RightBarShowType } from '../reducers/main';
+import { RightBarShowType, UserInfoType } from '../reducers/main';
 
+// 保存用户信息
+const set_user_info = (userInfo: UserInfoType) => ({ type: MAIN.SET_USER_INFO, payload: { userInfo } });
 // 获取文章类型
 const get_article_type = () => ({ type: MAIN.GET_ARTICLE_TYPE });
 // 设置滚动的距离
@@ -15,6 +17,7 @@ const set_login_panel_show = () => ({ type: MAIN.SET_LOGIN_PANEL_SHOW });
 const set_login_panel_hide = () => ({ type: MAIN.SET_LOGIN_PANEL_HIDE });
 
 export {
+  set_user_info,
   get_article_type,
   set_scroll_top,
   set_right_bar,

@@ -5,6 +5,9 @@ export enum HEADER {
 }
 
 export enum MAIN {
+  // 保存用户信息
+  SET_USER_INFO = 'SET_USER_INFO',
+
   // 设置和获取文章类型
   GET_ARTICLE_TYPE = 'GET_ARTICLE_TYPE',
   SET_ARTICLE_TYPE = 'SET_ARTICLE_TYPE',

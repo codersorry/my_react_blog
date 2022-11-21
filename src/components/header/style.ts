@@ -95,5 +95,12 @@ export const HeaderStyled = styled.div<HeaderStyledPropsType>`
     right: 10px;
     top: 10px;
     color: white;
+    cursor: pointer;
+  }
+
+  @media not screen and (min-width: 50em) {
+    .userName {
+      display: none;
+    }
   }
 `;

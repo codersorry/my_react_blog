@@ -19,6 +19,6 @@ export interface ArticleListDataType {
 // 获取文章列表
 export async function getArticleList() {
   return myRequest.get<ArticleListType>({
-    url: '/default/getArticleList?page=1&pageSize=6',
+    url: '/blog/getArticleList?page=1&pageSize=6',
   })
 }

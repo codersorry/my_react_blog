@@ -1,5 +1,5 @@
 export interface MyResponseType {
-  date: any;
+  data: any;
   result: boolean;
   message: string;
 }

@@ -13,6 +13,6 @@ export interface ArticleTypeType {
 // 获取文章类型
 export async function getArticleTypeList() {
   return myRequest.get<ArticleResType>({
-    url: '/default/getArticleTypeList',
+    url: '/blog/getArticleTypeList',
   })
 }

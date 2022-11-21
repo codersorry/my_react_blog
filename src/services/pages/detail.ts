@@ -14,6 +14,6 @@ export interface ArticleDetailType extends ArticleListDataType {
 // 通过id获取文章详情内容
 export async function getArticleById(id: any) {
   return myRequest.get<ArticleByIdType>({
-    url: `/default/getArticleById/${id}`,
+    url: `/blog/getArticleById/${id}`,
   });
 }

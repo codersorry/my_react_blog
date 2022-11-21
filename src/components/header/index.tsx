@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useState, useEffect } from 'react';
-import { Row, Col, Menu, Tooltip, Dropdown, Space, Avatar } from 'antd';
+import { Row, Col, Menu, Tooltip, Dropdown, Space, Avatar, message } from 'antd';
 import type { MenuProps } from 'antd';
 import { HeaderStyled } from './style';
 import {
@@ -11,22 +11,23 @@ import {
   MessageOutlined,
   RocketOutlined,
   UserOutlined,
-  MailOutlined,
   LoginOutlined,
   LogoutOutlined,
-  DownOutlined,
+  CaretDownOutlined,
 } from '@ant-design/icons';
-import { get_article_type, set_login_panel_show } from '@/store/actions/main';
+import { get_article_type, set_login_panel_show, set_user_info } from '@/store/actions/main';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '@/store';
 import { ArticleTypeType } from '@/services/components/header';
+import { UserInfoType } from '@/store/reducers/main';
 
 type MenuItem = Required<MenuProps>['items'][number];
 
 type CurStateType = {
   articleType: ArticleTypeType[];
   isShowHeader: boolean;
+  userInfo: UserInfoType;
 };
 
 function getItem(label: React.ReactNode, key: React.Key, icon?: React.ReactNode, children?: MenuItem[]): MenuItem {
@@ -41,9 +42,10 @@ function getItem(label: React.ReactNode, key: React.Key, icon?: React.ReactNode,
 const Header: React.FC = () => {
   const dispatch = useDispatch();
   const [articleTypeList, setArticleTypeList] = useState([]);
-  const { articleType, isShowHeader } = useSelector<RootState, CurStateType>((state) => ({
+  const { articleType, isShowHeader, userInfo } = useSelector<RootState, CurStateType>((state) => ({
     articleType: state.main.articleType,
     isShowHeader: state.header.isShowHeader,
+    userInfo: state.main.userInfo,
   }));
   useEffect(() => {
     dispatch(get_article_type());
@@ -61,7 +63,7 @@ const Header: React.FC = () => {
     setArticleTypeList(arr);
   };
 
-  const items: MenuItem[] = [
+  const headerItems: MenuItem[] = [
     getItem('首页', 'home', <HomeOutlined />),
     getItem('文章', 'article', <FormOutlined />, articleTypeList),
     getItem('记录', 'record', <RocketOutlined />),
@@ -71,7 +73,6 @@ const Header: React.FC = () => {
     getItem('聊天室', '7', <MessageOutlined />),
     getItem('友链', '5', <SmileOutlined />),
     getItem('关于', '8', <UserOutlined />),
-    getItem('登录', 'login', <MailOutlined />),
   ];
 
   const navigate = useNavigate();
@@ -87,28 +88,46 @@ const Header: React.FC = () => {
       navigate('/say');
     } else if (e.key === 'picture') {
       navigate('/picture');
-    } else if (e.key === 'login') {
-      debugger;
-      dispatch(set_login_panel_show());
     }
   };
 
-  const menu = (
-    <Menu
-      items={[
-        {
-          key: 'login',
-          label: '登录',
-          icon: <LoginOutlined />,
-        },
+  // 下拉登录菜单点击登录
+  const login = () => {
+    dispatch(set_login_panel_show());
+  };
+
+  // 下拉登录菜单点击登出
+  const logout = () => {
+    dispatch(
+      set_user_info({
+        user_id: '',
+        user_name: '',
+        email: '',
+        avatar: '',
+      }),
+    );
+    localStorage.removeItem('darryBlogUserInfo');
+    message.destroy();
+    message.success('登出成功哦 ~');
+  };
+  const items = userInfo.user_id
+    ? [
         {
           key: 'logout',
           label: '登出',
           icon: <LogoutOutlined />,
+          onClick: logout,
         },
-      ]}
-    />
-  );
+      ]
+    : [
+        {
+          key: 'login',
+          label: '登录',
+          icon: <LoginOutlined />,
+          onClick: login,
+        },
+      ];
+
   return (
     <HeaderStyled isShowHeader={isShowHeader}>
       <Row justify='center'>
@@ -139,17 +158,19 @@ const Header: React.FC = () => {
           <Menu
             mode='horizontal'
             onClick={menuClick}
-            items={items}
+            items={headerItems}
             style={{ backgroundColor: 'rgba(40,54,70,0)', color: 'pink' }}
           />
         </Col>
 
         <span className='avatarSpan'>
-          <Dropdown overlay={menu}>
+          <Dropdown menu={{ items }}>
             <Space>
-              请登录
-              <DownOutlined />
-              <Avatar size={30} icon={<UserOutlined />} />
+              <span className='userName'>
+                {userInfo.user_name ? userInfo.user_name : '可登录哦~'}&nbsp;
+                <CaretDownOutlined />
+              </span>
+              <Avatar src={userInfo.avatar} size={30} icon={<UserOutlined />} />
             </Space>
           </Dropdown>
         </span>
