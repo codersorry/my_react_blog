@@ -108,7 +108,7 @@ const Detail: React.FC<PropsType> = (props) => {
             {articleContent?.view_count}
           </span>
         </div>
-        <div className='detailed-content' dangerouslySetInnerHTML={{ __html: html }}></div>
+        <div className='detailed-content markdown-body' dangerouslySetInnerHTML={{ __html: html }}></div>
       </div>
       <Divider />
       <div className='article_tags'>

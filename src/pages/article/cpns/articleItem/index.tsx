@@ -4,7 +4,7 @@ import { ArticleItemStyled } from './style';
 import { CalendarOutlined, FolderOutlined, FireOutlined, PushpinOutlined } from '@ant-design/icons';
 import { Tag } from 'antd';
 import timeTrans from '@/utils/tools/timeTrans';
-import { errorImg } from '@/images/images';
+import { errorImg } from '@/assets/images/images';
 import { useDispatch } from 'react-redux';
 import { set_tags_hide } from '@/store/actions/main';
 

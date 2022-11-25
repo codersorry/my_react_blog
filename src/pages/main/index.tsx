@@ -12,12 +12,16 @@ import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '@/store';
 import { MainState } from '@/store/reducers/main';
 import { set_right_bar } from '@/store/actions/main';
+import Loading from '@/components/loading';
+// const Header = React.lazy(() => import('@/components/header'));
+// const MyBackTop = React.lazy(() => import('@/components/backTop'));
+// const Footer = React.lazy(() => import('@/components/footer'));
 
 const BlogMain = memo(() => {
   const dispatch = useDispatch();
   const { pathname } = useLocation();
   const { showRightBar, showLoginPanel } = useSelector<RootState, MainState>((state) => state.main);
-  const [isShowRightBar, setIsShowRightBar] = useState<boolean>(false); // 是否显示整个右侧
+  const [showRightBarAll, setShowRightBarAll] = useState<boolean>(false); // 是否显示整个右侧
 
   useEffect(() => {
     // 根据路由决定显示右边的哪些组件
@@ -41,25 +45,26 @@ const BlogMain = memo(() => {
     }
     // 如果右边一个组件也不显示，则隐藏整个右侧
     if (Object.values(showRightBar).find((item) => item === true)) {
-      setIsShowRightBar(true);
+      setShowRightBarAll(true);
     } else {
-      setIsShowRightBar(false);
+      setShowRightBarAll(false);
     }
     dispatch(set_right_bar(showRightBar));
   }, [dispatch, pathname]);
   return (
     <>
+      <div className='blog-back-ground-color' />
       <Header />
       <MyBackTop />
-      <Suspense fallback={<div>Loading...</div>}>
-        <BlogMainStyled isShowRightBar={isShowRightBar}>
+      <Suspense fallback={<Loading />}>
+        <BlogMainStyled>
           <Row className='comm-main' justify='center'>
             <Col className='comm-left' xs={23} sm={22} md={20} lg={14} xl={14}>
               <div className='left-content'>
                 <BlogRoutes />
               </div>
             </Col>
-            {isShowRightBar ? (
+            {showRightBarAll ? (
               <Col xs={0} sm={0} md={0} lg={5} xl={4}>
                 <RightBar showRightBar={showRightBar} />
               </Col>

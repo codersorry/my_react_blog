@@ -96,7 +96,7 @@ export const DetailStyled = styled.div<DetailStyledProps>`
   }
 
   /* markdown样式 */
-  .detailed-content img {
+  /* .detailed-content img {
     max-width: 100%;
     object-fit: contain;
   }
@@ -137,44 +137,11 @@ export const DetailStyled = styled.div<DetailStyledProps>`
     max-width: 1000px !important;
     display: block;
     margin: 8px auto;
-  }
+  } */
   /* markdown样式 */
-  .hcenter {
-    margin-top: 0;
-    margin-bottom: 0.5em;
-    color: rgba(0, 0, 0, 0.85);
-    font-weight: 500;
-    /* margin: 0 auto; */
-    text-align: center;
-  }
 
-  body,
-  html {
-    /* 锚点过渡效果 */
-    scroll-behavior: smooth;
-  }
   .detailed-nav {
     margin-top: 0.5rem;
-  }
-  .ant-anchor-wrapper::-webkit-scrollbar {
-    display: none;
-  } /* 隐藏滚动条 */
-
-  .ant-anchor-wrapper {
-    max-height: 87vh !important;
-  }
-
-  .ant-back-top {
-    /* 解决置顶覆盖问题 */
-    z-index: 50;
-  }
-
-  .nomore {
-    text-align: center;
-    margin-top: 1rem;
-    font-size: 0.7rem;
-    color: #888;
-    margin-bottom: 1rem;
   }
 
   .article_tags {
@@ -183,7 +150,7 @@ export const DetailStyled = styled.div<DetailStyledProps>`
     padding: 10px;
     .article_tags_container {
       display: flex;
-      alignitems: center;
+      align-items: center;
     }
     .tag_item {
       margin-left: 6px;

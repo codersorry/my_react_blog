@@ -8,8 +8,12 @@ export const HeaderStyled = styled.div<HeaderStyledPropsType>`
   line-height: 1.15; /* 1 */
   -webkit-text-size-adjust: 100%; /* 2 */
   scroll-behavior: smooth;
+  background-color: rgba(40, 54, 70, 0.8);
+  /* background: linear-gradient(-225deg, #ffe6fa 0, #e3fdf5 100%);
+  box-shadow: 0.1rem 0.1rem 0.2rem rgba(0, 0, 0, 0.1);
+  text-shadow: 0 0 0.0625rem rgba(0, 0, 0, 0.1);
+  color: #333; */
 
-  background-color: rgb(40, 54, 70);
   padding: 0.4rem;
   /* 根节点（html）的font-size决定了rem的尺寸，也就是说它是一个相对单位，相对于(html)。 */
   overflow: hidden;
@@ -67,7 +71,7 @@ export const HeaderStyled = styled.div<HeaderStyledPropsType>`
   }
   .header-txt {
     font-size: 0.6rem;
-    color: #999;
+    color: #fef2ec;
     padding-left: 0.3rem;
     display: inline-block;
   }
@@ -80,6 +84,31 @@ export const HeaderStyled = styled.div<HeaderStyledPropsType>`
     font-size: 0.8rem !important;
     padding-left: 1rem;
     padding-right: 1rem;
+  }
+
+  .ant-menu-item:hover {
+    color: #e0f2f2 !important;
+  }
+
+  .ant-menu-submenu-title:hover {
+    color: #e0f2f2 !important;
+  }
+
+  // 顶部菜单选中颜色
+  .ant-menu-light .ant-menu-submenu-selected > .ant-menu-submenu-title {
+    color: #e0f2f2 !important;
+  }
+  .ant-menu-light.ant-menu-horizontal > .ant-menu-item-selected,
+  .ant-menu-light.ant-menu-horizontal > .ant-menu-submenu-selected {
+    color: #e0f2f2 !important;
+  }
+  .ant-menu-light.ant-menu-horizontal > .ant-menu-item:hover,
+  .ant-menu-light.ant-menu-horizontal > .ant-menu-submenu:hover,
+  .ant-menu-light.ant-menu-horizontal > .ant-menu-item-active,
+  .ant-menu-light.ant-menu-horizontal > .ant-menu-submenu-active,
+  .ant-menu-light.ant-menu-horizontal > .ant-menu-item-open,
+  .ant-menu-light.ant-menu-horizontal > .ant-menu-submenu-open {
+    color: #e0f2f2 !important;
   }
 
   .smallheader-menu {

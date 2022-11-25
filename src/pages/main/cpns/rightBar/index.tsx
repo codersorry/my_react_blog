@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, memo } from 'react';
 import { RightBarStyled } from './styled';
 import Author from '@/components/author';
 import Tags from '@/components/tags';
@@ -8,9 +8,10 @@ type RightBarProps = {
   showRightBar: RightBarShowType;
 };
 
-const RightBar: React.FC<RightBarProps> = (props) => {
+const RightBar: React.FC<RightBarProps> = memo((props) => {
   const [lazyHideTags, setLazyHideTags] = useState<boolean>(false);
   const { showRightBar } = props;
+
   useEffect(() => {
     // 通过延迟隐藏的方式，显示消失动画
     if (showRightBar.showTags) {
@@ -39,6 +40,6 @@ const RightBar: React.FC<RightBarProps> = (props) => {
       )}
     </RightBarStyled>
   );
-};
+});
 
 export default RightBar;

@@ -21,7 +21,7 @@ const Record = () => {
           </Timeline.Item>
 
           {timeLineList.map((i) => {
-            return <Timeline.Item>{i.article_title}</Timeline.Item>;
+            return <Timeline.Item key={i.article_id}>{i.article_title}</Timeline.Item>;
           })}
 
           <Timeline.Item>Create a services site 2015-09-01</Timeline.Item>

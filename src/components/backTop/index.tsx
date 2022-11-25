@@ -1,7 +1,7 @@
 import React, { memo, useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { BackTopStyled } from './style';
-import { BackTop } from 'antd';
+import { FloatButton } from 'antd';
 import { RocketOutlined } from '@ant-design/icons';
 import { set_scroll_top } from '@/store/actions/main';
 import { set_header_show, set_header_hide } from '@/store/actions/header';
@@ -70,11 +70,11 @@ const MyBackTop: React.FC = memo(() => {
           }}
         ></RocketOutlined>
       </div> */}
-      <BackTop className='mobile'>
+      <FloatButton.BackTop className='mobile'>
         <div className='ant-back-top-inner'>
           <RocketOutlined />
         </div>
-      </BackTop>
+      </FloatButton.BackTop>
     </BackTopStyled>
   );
 });

@@ -6,7 +6,7 @@ const Article = React.lazy(() => import('@/pages/article'));
 const Detail = React.lazy(() => import('@/pages/detail'));
 const Record = React.lazy(() => import('@/pages/record'));
 const Say = React.lazy(() => import('@/pages/say'));
-const Picture = React.lazy(() => import('@/pages/picture'));
+const Friend = React.lazy(() => import('@/pages/friend'));
 
 const BlogRoutes = () => {
   const routes = useRoutes([
@@ -31,8 +31,8 @@ const BlogRoutes = () => {
       element: <Say />,
     },
     {
-      path: '/picture',
-      element: <Picture />,
+      path: '/friend',
+      element: <Friend />,
     },
   ]);
   return routes;

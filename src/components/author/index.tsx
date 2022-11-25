@@ -1,21 +1,24 @@
-import React, { useState } from 'react'
-import { Avatar, Divider } from 'antd'
-import { GithubOutlined, QqOutlined, WechatOutlined, EnvironmentOutlined, MailOutlined } from '@ant-design/icons'
-import 'animate.css'
-import { AuthorStyled } from './style'
+import React, { useState, useEffect } from 'react';
+import { Avatar, Divider } from 'antd';
+import { GithubOutlined, QqOutlined, WechatOutlined, EnvironmentOutlined, MailOutlined } from '@ant-design/icons';
+import 'animate.css';
+import { AuthorStyled } from './style';
 
 const Author: React.FC = () => {
-  const [avatRotate, setAvatRotate] = useState<number>(0)
+  const [avatRotate, setAvatRotate] = useState<number>(0);
   const handleMouseOver = () => {
-    avatRotate === 0 ? setAvatRotate(360) : setAvatRotate(0)
-  }
+    avatRotate === 0 ? setAvatRotate(360) : setAvatRotate(0);
+  };
+  useEffect(() => {
+    console.log('@11111');
+  }, []);
   return (
     <AuthorStyled className='comm-box' avatRotate={avatRotate}>
       {/* <Avatar size={100} src='https://avatars.githubusercontent.com/u/67702479?v=4'></Avatar> */}
       <div>
         <img
           className='my_avat'
-          src='https://avatars.githubusercontent.com/u/67702479?v=4'
+          src='https://q.qlogo.cn/headimg_dl?dst_uin=792478594&spec=100'
           alt='Avatar'
           onMouseOver={() => handleMouseOver()}
         />
@@ -44,7 +47,7 @@ const Author: React.FC = () => {
         <Avatar size={28} icon={<WechatOutlined />} className='account'></Avatar>
       </div>
     </AuthorStyled>
-  )
-}
+  );
+};
 
-export default Author
+export default Author;

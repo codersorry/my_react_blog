@@ -1,13 +1,11 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useState, useEffect } from 'react';
 import { Row, Col, Menu, Tooltip, Dropdown, Space, Avatar, message } from 'antd';
-import type { MenuProps } from 'antd';
 import { HeaderStyled } from './style';
 import {
   HomeOutlined,
   SmileOutlined,
   FormOutlined,
-  ShareAltOutlined,
   MessageOutlined,
   RocketOutlined,
   UserOutlined,
@@ -22,22 +20,11 @@ import { RootState } from '@/store';
 import { ArticleTypeType } from '@/services/components/header';
 import { UserInfoType } from '@/store/reducers/main';
 
-type MenuItem = Required<MenuProps>['items'][number];
-
 type CurStateType = {
   articleType: ArticleTypeType[];
   isShowHeader: boolean;
   userInfo: UserInfoType;
 };
-
-function getItem(label: React.ReactNode, key: React.Key, icon?: React.ReactNode, children?: MenuItem[]): MenuItem {
-  return {
-    key,
-    icon,
-    children,
-    label,
-  } as MenuItem;
-}
 
 const Header: React.FC = () => {
   const dispatch = useDispatch();
@@ -55,24 +42,22 @@ const Header: React.FC = () => {
     mapArr(articleType);
   }, [articleType]);
 
+  // 将redux里面拿到额文章类型，保存到组件articleTypeList中
   const mapArr = (data: ArticleTypeType[]) => {
     const arr: any = [];
     data.forEach((item: ArticleTypeType) => {
-      arr.push(getItem(item.type_name, item.type_id));
+      arr.push({ label: item.type_name, key: item.type_id });
     });
     setArticleTypeList(arr);
   };
 
-  const headerItems: MenuItem[] = [
-    getItem('首页', 'home', <HomeOutlined />),
-    getItem('文章', 'article', <FormOutlined />, articleTypeList),
-    getItem('记录', 'record', <RocketOutlined />),
-    getItem('说说', 'say', <ShareAltOutlined />),
-    getItem('图片', 'picture', <SmileOutlined />),
-    // getItem('留言', '6', <MessageOutlined />),
-    getItem('聊天室', '7', <MessageOutlined />),
-    getItem('友链', '5', <SmileOutlined />),
-    getItem('关于', '8', <UserOutlined />),
+  const headerItems = [
+    { label: '首页', key: 'home', icon: <HomeOutlined /> },
+    { label: '文章', key: 'article', icon: <FormOutlined />, children: articleTypeList },
+    { label: '记录', key: 'record', icon: <RocketOutlined /> },
+    { label: '说说', key: 'say', icon: <MessageOutlined /> },
+    { label: '友链', key: 'friend', icon: <SmileOutlined /> },
+    { label: '关于', key: 'about', icon: <UserOutlined /> },
   ];
 
   const navigate = useNavigate();
@@ -86,8 +71,10 @@ const Header: React.FC = () => {
       navigate('/record');
     } else if (e.key === 'say') {
       navigate('/say');
-    } else if (e.key === 'picture') {
-      navigate('/picture');
+    } else if (e.key === 'friend') {
+      navigate('/friend');
+    } else if (e.key === 'about') {
+      navigate('/about');
     }
   };
 

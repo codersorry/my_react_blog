@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-import curImg from '@/images/treeFlower.gif';
+import curImg from '@/assets/images/treeFlower.gif';
 
 export const LoginPanelStyled = styled.div`
   background: url(${curImg}) no-repeat center center !important;

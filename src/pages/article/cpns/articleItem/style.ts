@@ -8,6 +8,14 @@ export const ArticleItemStyled = styled.div<ArticleItemStyledType>`
   user-select: none; // 阻止文本选中
   transition: all 0.3s;
 
+  font-feature-settings: 'tnum';
+  background-color: #fff;
+  color: rgba(0, 0, 0, 0.85);
+  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue, Arial, Noto Sans, sans-serif,
+    Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol, Noto Color Emoji;
+  font-variant: tabular-nums;
+  line-height: 1.5715;
+
   animation: ${(props) => (props.isShow ? 'cssnice .7s ease-out forwards' : '')};
   cursor: pointer;
   font-size: 13px;

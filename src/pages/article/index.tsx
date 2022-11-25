@@ -1,8 +1,8 @@
 import React, { memo, useState, useEffect, useCallback } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import { Breadcrumb, Pagination, Menu, Spin } from 'antd';
+import { Breadcrumb, Pagination, Spin, Dropdown, Space } from 'antd';
 import type { PaginationProps, MenuProps } from 'antd';
-import { LoadingOutlined } from '@ant-design/icons';
+import { LoadingOutlined, CaretDownOutlined } from '@ant-design/icons';
 import 'highlight.js/styles/monokai-sublime.css';
 import { ArticleStyled } from './style';
 import { getArticleListByTypeId } from '@/services/pages/article';
@@ -98,7 +98,10 @@ const Article: React.FC = memo(() => {
     navigate(`/article/${key}`);
   };
 
-  const menu = <Menu items={articleTypeList} onClick={dropMenuClick} />;
+  // 给面包屑下拉菜单添加点击事件
+  const items = articleTypeList.map((item) => {
+    return { ...item, onClick: dropMenuClick };
+  });
 
   // 根据id匹配当前页文章类型名称
   const idMapArticleType = (id: any, list: CurDropMenuItemType[]) => {
@@ -152,8 +155,13 @@ const Article: React.FC = memo(() => {
         <div className='breadcrumb'>
           <Breadcrumb>
             <Breadcrumb.Item>文章</Breadcrumb.Item>
-            <Breadcrumb.Item overlay={menu} className='breadcrumbItem'>
-              {curArticleType}
+            <Breadcrumb.Item className='breadcrumbItem'>
+              <Dropdown menu={{ items }}>
+                <Space>
+                  {curArticleType}
+                  <CaretDownOutlined />
+                </Space>
+              </Dropdown>
             </Breadcrumb.Item>
           </Breadcrumb>
         </div>
