@@ -48,4 +48,13 @@ export const FooterStyled = styled.div`
       height: 30px;
     }
   }
+
+  @media screen and (max-width: 80em) {
+    .footer-middle {
+      flex: 1.6;
+    }
+    .footer-middle-right {
+      display: none;
+    }
+  }
 `;

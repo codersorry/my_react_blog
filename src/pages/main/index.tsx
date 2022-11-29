@@ -13,17 +13,17 @@ import { RootState } from '@/store';
 import { MainState } from '@/store/reducers/main';
 import { set_right_bar } from '@/store/actions/main';
 import Loading from '@/components/loading';
-// const Header = React.lazy(() => import('@/components/header'));
-// const MyBackTop = React.lazy(() => import('@/components/backTop'));
-// const Footer = React.lazy(() => import('@/components/footer'));
 
 const BlogMain = memo(() => {
   const dispatch = useDispatch();
   const { pathname } = useLocation();
   const { showRightBar, showLoginPanel } = useSelector<RootState, MainState>((state) => state.main);
   const [showRightBarAll, setShowRightBarAll] = useState<boolean>(false); // 是否显示整个右侧
+  const [isNotFound, setIsNotFound] = useState<boolean>(false); // 是否为404页面
 
   useEffect(() => {
+    setIsNotFound(false); // 默认非404页面
+    const curPathname = pathname.split('/')[1];
     // 根据路由决定显示右边的哪些组件
     let showRightBar = {
       showAuthor: false,
@@ -31,17 +31,21 @@ const BlogMain = memo(() => {
     };
     if (pathname === '/') {
       showRightBar.showAuthor = true;
-    } else if (pathname.indexOf('/article') !== -1) {
+    } else if (curPathname === 'article') {
       showRightBar.showAuthor = true;
       showRightBar.showTags = true;
-    } else if (pathname.indexOf('/detail') !== -1) {
+    } else if (curPathname === 'detail') {
       showRightBar.showAuthor = true;
       showRightBar.showTags = true;
-    } else if (pathname.indexOf('/record') !== -1) {
+    } else if (curPathname === 'record') {
       showRightBar.showAuthor = true;
-    } else if (pathname.indexOf('/say') !== -1) {
+    } else if (curPathname === 'say') {
       showRightBar.showAuthor = true;
-    } else if (pathname.indexOf('/picture') !== -1) {
+    } else if (curPathname === 'friend') {
+      showRightBar.showAuthor = true;
+    } else if (curPathname === 'about') {
+    } else {
+      setIsNotFound(true); // 都没匹配到则为404页面
     }
     // 如果右边一个组件也不显示，则隐藏整个右侧
     if (Object.values(showRightBar).find((item) => item === true)) {
@@ -59,7 +63,7 @@ const BlogMain = memo(() => {
       <Suspense fallback={<Loading />}>
         <BlogMainStyled>
           <Row className='comm-main' justify='center'>
-            <Col className='comm-left' xs={23} sm={22} md={20} lg={14} xl={14}>
+            <Col className={isNotFound ? '' : 'comm-left'} xs={23} sm={22} md={20} lg={14} xl={14}>
               <div className='left-content'>
                 <BlogRoutes />
               </div>

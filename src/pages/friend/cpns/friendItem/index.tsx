@@ -1,12 +1,14 @@
-import React from 'react';
+import React, { FC, PropsWithChildren } from 'react';
 import { FriendStyledStyled } from './style';
-import { Avatar } from 'antd';
+import { Avatar, Tooltip } from 'antd';
 
-type FriendItemProps = {
-  info: { id: string; name: string };
+type IProps = {
+  info: { id: string; name: string; describe: string };
+  containerWidth: number;
 };
+type IFriendItem = PropsWithChildren<IProps>;
 
-const FriendItem: React.FC<FriendItemProps> = (props) => {
+const FriendItem: FC<IFriendItem> = (props) => {
   const styles = getRandomStyles();
 
   // 获取参数范围内随机数
@@ -20,16 +22,22 @@ const FriendItem: React.FC<FriendItemProps> = (props) => {
     const g = random(255);
     const b = random(255);
     const mt = random(200);
-    const ml = random(800);
+    const ml = random(props.containerWidth - 120);
     const dur = random(6) + 2;
     return { r, g, b, mt, ml, dur };
   }
+
+  const friendItemClick = () => {
+    window.open('http://www.baidu.com', '_blank');
+  };
   return (
-    <FriendStyledStyled styles={styles}>
-      <div>
-        <Avatar src='https://q.qlogo.cn/headimg_dl?dst_uin=792478594&spec=100' size={30} />
-      </div>
-      <div>{props.info.name}</div>
+    <FriendStyledStyled styles={styles} onClick={friendItemClick}>
+      <Tooltip title={props.info.describe} color={`rgba(${styles.r},${styles.g},${styles.b},0.9)`}>
+        <div>
+          <Avatar src='https://q.qlogo.cn/headimg_dl?dst_uin=792478594&spec=100' size={30} />
+        </div>
+        <div>{props.info.name}</div>
+      </Tooltip>
     </FriendStyledStyled>
   );
 };

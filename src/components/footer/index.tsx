@@ -11,7 +11,7 @@ const Footer: React.FC = () => {
         <div className='footer-middle'>
           <div className='footer-middle-left'>
             <div>© 2022 Darry</div>
-            <div>By antd & react & others</div>
+            <div>By antd & react & node</div>
           </div>
           <div className='footer-middle-right'>
             <img src={cat} alt='' />

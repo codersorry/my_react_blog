@@ -96,7 +96,7 @@ const LoginPanel: React.FC = () => {
             label='邮箱'
             rules={[
               { required: true, message: '忘记填邮箱啦 ~' },
-              { max: 20, message: '这也太长啦 ~' },
+              { max: 30, message: '这也太长啦 ~' },
               {
                 // eslint-disable-next-line no-useless-escape
                 pattern: /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/,
