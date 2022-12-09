@@ -9,8 +9,29 @@ body {
   line-height: normal;
 }
 
+body::-webkit-scrollbar {
+  width: 8px;
+}
+
+body::-webkit-scrollbar-thumb {
+  background-color: #f4a7ca;
+  border-radius: 7px;
+}
+
+body::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0);
+  border-radius: 7px;
+}
+
 .blog-back-ground-color {
-  background: -webkit-linear-gradient(
+  background: linear-gradient(
+    to right,
+    rgba(247, 121, 125, 0.18),
+    rgba(251, 215, 134, 0.18),
+    rgba(198, 255, 221, 0.18)
+  );
+
+  /* background: -webkit-linear-gradient(
     0deg,
     rgba(247, 149, 51, 0.1) 0,
     rgba(243, 112, 85, 0.1) 15%,
@@ -64,7 +85,7 @@ body {
     rgba(16, 152, 173, 0.1) 72%,
     rgba(7, 179, 155, 0.1) 86%,
     rgba(109, 186, 130, 0.1) 100%
-  );
+  ); */
 
   position: fixed;
   z-index: -999;

@@ -12,12 +12,11 @@ export const NotFoundStyled = styled.div`
     text-decoration: none;
   }
   .not-found {
-    /* background-color: #ccc; */
-    /* color: white; */
     margin-top: 100px;
-    padding: 15px;
-    padding-left: 30px;
-    padding-right: 30px;
+    margin-bottom: 30px;
+    font-family: 'Comfortaa', cursive;
+    font-size: 24px;
+    padding: 10px 50px;
   }
   .tipsiz {
     /* height: 50vh; */

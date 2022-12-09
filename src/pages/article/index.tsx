@@ -167,15 +167,16 @@ const Article: React.FC = memo(() => {
         </div>
         {list.map((item, index) => {
           return (
-            <ArticleItem
-              isShow={isShowArray[index]}
-              index={index}
-              key={item.article_id}
-              curItem={item}
-              setIsShowDetail={setIsShowDetail}
-              setArticleId={setArticleId}
-              setScrollTop={setScrollTop}
-            />
+            <div key={item.article_id}>
+              <ArticleItem
+                isShow={isShowArray[index]}
+                index={index}
+                curItem={item}
+                setIsShowDetail={setIsShowDetail}
+                setArticleId={setArticleId}
+                setScrollTop={setScrollTop}
+              />
+            </div>
           );
         })}
         <div style={{ display: list.length === 0 ? 'block' : 'none' }}>

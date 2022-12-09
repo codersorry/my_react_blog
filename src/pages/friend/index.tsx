@@ -1,4 +1,4 @@
-import React, { useRef, MutableRefObject, useEffect, useState } from 'react';
+import React, { useRef, MutableRefObject, useEffect, useState, memo } from 'react';
 import { FriendStyled } from './style';
 import FriendItem from './cpns/friendItem';
 import Comment from '@/components/comment';
@@ -24,7 +24,7 @@ const friends = [
   { id: '15', name: 'Jay', describe: 'I am Darry' },
 ];
 
-const Friend = () => {
+const Friend = memo(() => {
   // 获取friend-container的宽度
   const friendContainerRef: MutableRefObject<any> = useRef(null);
   const [containerWidth, setContainerWidth] = useState(0);
@@ -33,7 +33,7 @@ const Friend = () => {
     // 组件第一次加载添加resize事件，监听屏幕尺寸变化，重新设置容器宽度值
     window.addEventListener('resize', saveWidth);
 
-    // 组件卸载的时候，取消onresize监听
+    // 组件卸载的时候，取消监听
     return () => {
       window.removeEventListener('resize', saveWidth);
     };
@@ -45,6 +45,7 @@ const Friend = () => {
     }
   }, [friendContainerRef]);
 
+  // 保存friend-container容器宽度
   const saveWidth = () => {
     debounce(function () {
       if (friendContainerRef) {
@@ -57,7 +58,9 @@ const Friend = () => {
     <FriendStyled>
       <div className='friend-container' ref={friendContainerRef}>
         {friends.map((item) => (
-          <FriendItem key={item.id} info={item} containerWidth={containerWidth} />
+          <div key={item.id}>
+            <FriendItem info={item} containerWidth={containerWidth} />
+          </div>
         ))}
       </div>
       <div className='welcome-title'>欢迎交换友链哦 ~</div>
@@ -91,6 +94,6 @@ const Friend = () => {
       </div>
     </FriendStyled>
   );
-};
+});
 
 export default Friend;

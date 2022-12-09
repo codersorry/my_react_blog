@@ -4,7 +4,7 @@ import { NotFoundStyled } from './style';
 const NotFound = () => {
   return (
     <NotFoundStyled>
-      <p className='not-found'> page not found </p>
+      <p className='not-found'> PAGE NOT FOUND </p>
       <div className='tipsiz'>
         <div className='tipsiz-body'>
           <div className='left-arm arm'></div>
@@ -20,7 +20,7 @@ const NotFound = () => {
         </div>
       </div>
       <p>
-        maybe you want to go <a href='/'>back home? </a>
+        <a href='/'>GO BACK HOME</a>
       </p>
     </NotFoundStyled>
   );

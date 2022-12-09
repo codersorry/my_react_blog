@@ -58,7 +58,6 @@ const Detail: React.FC<PropsType> = (props) => {
     setTimeout(() => {
       window.scrollTo(0, 0);
     }, 10);
-    // window.scrollTo(0, 0);
     articleId &&
       getArticleById(articleId).then((res) => {
         setArticleContent(res.data[0]);
@@ -67,7 +66,6 @@ const Detail: React.FC<PropsType> = (props) => {
 
   //返回主页
   const backToArticle = () => {
-    // navigate('/');
     props.setIsShowDetail(false);
     // 显示tags组件
     dispatch(set_tags_show());

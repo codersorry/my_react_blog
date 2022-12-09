@@ -31,7 +31,7 @@ const FriendItem: FC<IFriendItem> = (props) => {
     window.open('http://www.baidu.com', '_blank');
   };
   return (
-    <FriendStyledStyled styles={styles} onClick={friendItemClick}>
+    <FriendStyledStyled styles={styles}  onClick={friendItemClick}>
       <Tooltip title={props.info.describe} color={`rgba(${styles.r},${styles.g},${styles.b},0.9)`}>
         <div>
           <Avatar src='https://q.qlogo.cn/headimg_dl?dst_uin=792478594&spec=100' size={30} />

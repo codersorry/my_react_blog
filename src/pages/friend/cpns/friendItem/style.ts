@@ -19,7 +19,10 @@ export const FriendStyledStyled = styled.div<FriendStyledStyledProps>`
   background-color: ${(props) => `rgba(${props.styles.r},${props.styles.g},${props.styles.b},1)`};
   box-shadow: ${(props) =>
     `inset -7px -3px 10px rgba(${props.styles.r - 10},${props.styles.g - 10},${props.styles.b - 10},1)`};
-  margin: ${(props) => `${props.styles.mt}px 0 0 ${props.styles.ml}px`};
+
+  left: ${(props) => `${props.styles.ml}px`};
+  top: ${(props) => `${props.styles.mt}px`};
+
   animation: ${(props) => `float ${props.styles.dur}s ease-in infinite`};
 
   &:hover {

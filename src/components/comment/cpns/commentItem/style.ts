@@ -60,7 +60,7 @@ export const CommentItemStyled = styled.div`
   }
 
   .comment-content-author-time {
-    color: #ccc;
+    color: #aaa;
     white-space: nowrap;
     cursor: auto;
   }
