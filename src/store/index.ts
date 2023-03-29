@@ -10,11 +10,11 @@ import { defSaga } from './sagas';
 
 const middleWareSaga = createSagaMiddleware();
 
-const stroe = createStore(reducers, composeWithDevTools(applyMiddleware(middleWareSaga)));
+const store = createStore(reducers, composeWithDevTools(applyMiddleware(middleWareSaga)));
 
 //运行saga
 middleWareSaga.run(defSaga);
 
 export type RootState = ReturnType<typeof reducers>;
 
-export default stroe;
+export default store;

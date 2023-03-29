@@ -56,6 +56,7 @@ export const HeaderStyled = styled.div<HeaderStyledPropsType>`
       #ff00ff 93.75%,
       #ffff00 100%
     );
+    background-clip: text;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-size: 200% 100%;

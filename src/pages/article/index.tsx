@@ -8,7 +8,7 @@ import { ArticleStyled } from './style';
 import { getArticleListByTypeId } from '@/services/pages/article';
 import { ArticleListDataType } from '@/services/pages/home';
 import ArticleItem from './cpns/articleItem';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector, useDispatch, shallowEqual } from 'react-redux';
 import { RootState } from '@/store';
 import { MainState } from '@/store/reducers/main';
 import Detail from '@/pages/detail';
@@ -23,7 +23,7 @@ interface CurDropMenuItemType {
 const Article: React.FC = memo(() => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const { articleType } = useSelector<RootState, MainState>((state) => state.main);
+  const { articleType } = useSelector<RootState, MainState>((state) => state.main, shallowEqual);
   const { id } = useParams();
   const [articleTypeList, setArticleTypeList] = useState<CurDropMenuItemType[]>([]);
   const [curArticleType, setCurArticleType] = useState<string>(); // 面包屑当前的文章类型
@@ -72,11 +72,15 @@ const Article: React.FC = memo(() => {
     setIsShowDetail(false); // id变化，需要显示文章页
     setPage(1);
     setPageSize(10);
-    getArticleListByTypeId(id, { page: 1, pageSize: 10 }).then((res) => {
-      setList(res.data.articles);
-      setTotal(res.data.total);
-      setIsShowArrayFalse(res.data.articles.length);
-    });
+    getArticleListByTypeId(id, { page: 1, pageSize: 10 })
+      .then((res) => {
+        setList(res.data.articles);
+        setTotal(res.data.total);
+        setIsShowArrayFalse(res.data.articles.length);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   }, [id, setIsShowArrayFalse]);
 
   //面包屑下拉文章类型列表
@@ -121,13 +125,17 @@ const Article: React.FC = memo(() => {
   const onShowSizeChange: PaginationProps['onShowSizeChange'] = (page, pageSize) => {
     setPage(page);
     setPageSize(pageSize);
-    getArticleListByTypeId(id, { page: 1, pageSize }).then((res) => {
-      setList(res.data.articles);
-      setTotal(res.data.total);
-      //重新请求后，自动返回顶部，手动设置redux中scrollTop的值为0
-      dispatch(set_scroll_top(0));
-      window.scrollTo(0, 0);
-    });
+    getArticleListByTypeId(id, { page: 1, pageSize })
+      .then((res) => {
+        setList(res.data.articles);
+        setTotal(res.data.total);
+        //重新请求后，自动返回顶部，手动设置redux中scrollTop的值为0
+        dispatch(set_scroll_top(0));
+        window.scrollTo(0, 0);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
 
   //修改分页栏展现方式
@@ -139,14 +147,18 @@ const Article: React.FC = memo(() => {
   const onChange: PaginationProps['onChange'] = (page, pageSize) => {
     setPage(page);
     setPageSize(pageSize);
-    getArticleListByTypeId(id, { page: page, pageSize }).then((res) => {
-      setList(res.data.articles);
-      setTotal(res.data.total);
-      setIsShowArrayFalse(res.data.articles.length);
-      //重新请求后，自动返回顶部，手动设置redux中scrollTop的值为0
-      dispatch(set_scroll_top(0));
-      window.scrollTo(0, 0);
-    });
+    getArticleListByTypeId(id, { page: page, pageSize })
+      .then((res) => {
+        setList(res.data.articles);
+        setTotal(res.data.total);
+        setIsShowArrayFalse(res.data.articles.length);
+        //重新请求后，自动返回顶部，手动设置redux中scrollTop的值为0
+        dispatch(set_scroll_top(0));
+        window.scrollTo(0, 0);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
 
   return (
